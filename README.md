@@ -1,3 +1,13 @@
+<p align="center">
+  <a href="https://github.com/blkcor/gin-react-admin">
+    <img width="48%" alt="go-admin" src="https://blkcor-gra-1305234069.cos.ap-nanjing.myqcloud.com/OIG1.jpeg">
+  </a>
+</p>
+
+<p align="center">
+    Generate a production-ready admin panel in five minutes.
+</p>
+
 ## ⚙️ Introduction
 
 GRA(Gin-React-Admin) is a management template project based on Gin and React. This project aims to provide a common backend management system infrastructure to help developers quickly build management panels with responsive interfaces.
