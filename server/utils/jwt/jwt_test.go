@@ -5,7 +5,7 @@ import (
 )
 
 func TestGenToken(t *testing.T) {
-	token, err := GenToken(1, "blkcor", "blkcor.dev@gmail.com")
+	token, err := GenToken(1, "blkcor", "blkcor.dev@gmail.com", "123456")
 	if err != nil {
 		t.Error(err)
 	}
@@ -13,7 +13,7 @@ func TestGenToken(t *testing.T) {
 }
 
 func TestParseToken(t *testing.T) {
-	claim, err := ParseToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImJsa2NvciIsImVtYWlsIjoiYmxrY29yLmRldkBnbWFpbC5jb20iLCJpc3MiOiJzb21lYm9keSIsImV4cCI6MTcyMjg2OTYzNH0.cj2sBErUQijxUYK8FS2NAtF5zFzKLJjRetFa5VxdSwA")
+	claim, err := ParseToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImJsa2NvciIsImVtYWlsIjoiYmxrY29yLmRldkBnbWFpbC5jb20iLCJpc3MiOiJzb21lYm9keSIsImV4cCI6MTcyMzYzMjkwNH0.JFCIIfjnuB0lSny_5IALp7KJcWl9_zVhQW71mYChOFY", "123456")
 	if err != nil {
 		t.Error(err)
 	}

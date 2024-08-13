@@ -16,10 +16,8 @@ type Claim struct {
 	jwt.RegisteredClaims
 }
 
-var secretKey = []byte("blkcor-secret")
-
 // GenToken 生成jwt签名
-func GenToken(userId int64, username string, email string) (string, error) {
+func GenToken(userId int64, username string, email string, accessKey string) (string, error) {
 	claims := Claim{
 		userId,
 		username,
@@ -30,14 +28,14 @@ func GenToken(userId int64, username string, email string) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(secretKey)
+	return token.SignedString([]byte(accessKey))
 }
 
 // ParseToken 解析token信息
-func ParseToken(tokenString string) (*Claim, error) {
+func ParseToken(tokenString string, accessKey string) (*Claim, error) {
 	claims := &Claim{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secretKey), nil
+		return []byte(accessKey), nil
 	})
 	if err != nil {
 		if strings.Contains(err.Error(), "could not JSON decode header") {

@@ -22,10 +22,7 @@ func Init() {
 	}
 	logger.Info("数据库连接已建立!")
 
-	//migration
-	//err = DB.AutoMigrate(&model.User{})
-	//if err != nil {
-	//	logger.Error("🚫 User table migration failed: ", err)
-	//	panic(err)
-	//}
+	//table migrations
+	//_ = DB.AutoMigrate(&model.User{})
+
 }

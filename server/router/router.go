@@ -14,12 +14,10 @@ func Init() {
 	Router.Use(middleware.CorsMiddleware())
 	Router.Use(middleware.RequestLogMiddleware())
 	Router.Use(gin.Recovery())
-	//session
 	Router.GET("/ping", api.Ping)
-	//v1 := Router.Group("/api/v1")
-	//{
-	//	v1.Use(middleware.AuthMiddleWare())
-	//	v1.GET("/ping", controller.PingController)
-	//}
+	v1 := Router.Group("/api/v1")
+	{
+		v1.Use(middleware.AuthMiddleWare())
+	}
 	logger.Info("路由初始化成功!")
 }
