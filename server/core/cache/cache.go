@@ -17,6 +17,7 @@ func Init() {
 	_, err := rdb.Ping(context.Background()).Result()
 	if err != nil {
 		logger.Error("Redis连接失败: ", err.Error())
+		return
 	}
 	RDB = rdb
 	logger.Info("Redis连接已建立!")

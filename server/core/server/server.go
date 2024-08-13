@@ -13,7 +13,7 @@ func Init() {
 	//初始化路由
 	router.Init()
 
-	logger.Infof("✅ 服务启动成功, 地址: http://127.0.0.1:%s", section.AppConfig.Port)
+	logger.Infof("服务启动成功, 地址: http://127.0.0.1:%s", section.AppConfig.Port)
 	//开启服务
 	fmt.Printf(`
 欢迎使用 gin-react-admin
