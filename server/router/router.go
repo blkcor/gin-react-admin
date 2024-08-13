@@ -13,6 +13,7 @@ func Init() {
 	Router = gin.New()
 	Router.Use(middleware.CorsMiddleware())
 	Router.Use(middleware.RequestLogMiddleware())
+	Router.Use(middleware.CasbinHandler())
 	Router.Use(gin.Recovery())
 	Router.GET("/ping", api.Ping)
 	v1 := Router.Group("/api/v1")
