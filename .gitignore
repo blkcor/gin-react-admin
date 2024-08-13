@@ -1,1 +1,1 @@
-server/logs
+server/logs/*.log
