@@ -33,7 +33,6 @@ func VerifyCaptcha(context *gin.Context, captchaCode string) bool {
 		logger.Error("Get captcha code from redis failed: ", err)
 		return false
 	}
-	logger.Info("Captcha code from redis: ", cpt)
 	if cpt != captchaCode {
 		logger.Error("Captcha verification failed")
 		return false
