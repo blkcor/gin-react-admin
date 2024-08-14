@@ -63,7 +63,7 @@ func Login(context *gin.Context) {
 	context.JSON(http.StatusOK, response.LoginResponse{
 		Token:   token,
 		Message: "登录成功",
-		User: response.UserInfo{
+		UserInfo: response.UserInfo{
 			UserId:   user.ID,
 			Username: user.Username,
 			Email:    user.Email,
