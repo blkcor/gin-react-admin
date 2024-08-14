@@ -10,21 +10,23 @@ import (
 
 // Claim 定义token中的payload存储的信息
 type Claim struct {
-	UserID   int64  `json:"user_id"`
+	UserID   uint32 `json:"user_id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
+	Role     string `json:"role"`
 	jwt.RegisteredClaims
 }
 
 // GenToken 生成jwt签名
-func GenToken(userId int64, username string, email string, accessKey string) (string, error) {
+func GenToken(userId uint32, username string, email string, role string, accessKey string) (string, error) {
 	claims := Claim{
 		userId,
 		username,
 		email,
+		role,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)), // 定义过期时间
-			Issuer:    "somebody",                                         // 签发人
+			Issuer:    "blkcor",                                           // 签发人
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

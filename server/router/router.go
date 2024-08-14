@@ -13,12 +13,14 @@ func Init() {
 	Router = gin.New()
 	Router.Use(middleware.CorsMiddleware())
 	Router.Use(middleware.RequestLogMiddleware())
-	Router.Use(middleware.CasbinHandler())
+	Router.Use(middleware.ClientIP())
 	Router.Use(gin.Recovery())
-	Router.GET("/ping", api.Ping)
+	Router.GET("/captcha", api.Captcha)
+	Router.POST("/login", api.Login)
 	v1 := Router.Group("/api/v1")
 	{
 		v1.Use(middleware.AuthMiddleWare())
+		v1.Use(middleware.CasbinHandler())
 	}
 	logger.Info("路由初始化成功!")
 }
