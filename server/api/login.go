@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/blkcor/gin-react-admin/config/section"
 	"github.com/blkcor/gin-react-admin/models/request"
+	"github.com/blkcor/gin-react-admin/models/response"
 	"github.com/blkcor/gin-react-admin/service"
 	"github.com/blkcor/gin-react-admin/utils/captcha"
 	"github.com/blkcor/gin-react-admin/utils/jwt"
@@ -59,14 +60,14 @@ func Login(context *gin.Context) {
 		})
 		return
 	}
-	context.JSON(http.StatusOK, gin.H{
-		"token":   token,
-		"message": "登录成功",
-		"userInfo": gin.H{
-			"userId":   user.ID,
-			"username": user.Username,
-			"email":    user.Email,
-			"avatar":   user.Avatar,
+	context.JSON(http.StatusOK, response.LoginResponse{
+		Token:   token,
+		Message: "登录成功",
+		User: response.UserInfo{
+			UserId:   user.ID,
+			Username: user.Username,
+			Email:    user.Email,
+			Avatar:   user.Avatar,
 		},
 	})
 }
