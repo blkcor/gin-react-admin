@@ -15,7 +15,7 @@ import (
 //
 // @Summary      登录
 // @Description  管理登录接口，用户可以通过该接口进行登录。登录时需要提供用户名、密码和验证码。接口会校验用户的合法性、密码和验证码，如果校验成功，则生成 JWT token 并返回。如果校验失败，则返回相应的错误信息。
-// @Tags         Login
+// @Tags         登录相关接口
 // @Accept       json
 // @Produce      json
 // @Param        body  body     request.LoginRequest  true  "登录请求参数"
@@ -23,7 +23,6 @@ import (
 // @Failure      400  {object}  map[string]interface{}  "参数错误，返回详细错误信息"
 // @Failure      401  {object}  map[string]interface{}  "用户认证失败，包括用户名不存在、密码错误或验证码错误"
 // @Failure      500  {object}  map[string]interface{}  "服务器内部错误，返回详细错误信息"
-// @Security     ApiKeyAuth
 // @Router       /login [post]
 func Login(context *gin.Context) {
 	loginRequest := request.LoginRequest{}

@@ -21,8 +21,27 @@ func InitDocInfo() {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 }
 
+// @title           GRA API文档
+// @version         1.0
+// @description     Gin + React 管理系统的 API 文档
+// @termsOfService  http://www.swagger.io/terms/
+
+// @contact.name   blkcor
+// @contact.url    https://blkcor.me
+// @contact.email  blkcor.dev@gmail.com
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:8080
+// @BasePath  /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func Init() {
-	InitDocInfo()
+	//InitDocInfo()
 	Router = gin.New()
 	Router.Use(middleware.CorsMiddleware())
 	Router.Use(middleware.RequestLogMiddleware())

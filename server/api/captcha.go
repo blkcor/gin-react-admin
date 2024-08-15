@@ -13,7 +13,7 @@ import (
 //
 //	@Summary		获取验证码
 //	@Description	获取验证码接口
-//	@Tags			Captcha
+//	@Tags			登录相关接口
 //	@Produce		image/png
 //	@Success		200	{string}	string	"ok"
 //	@Failure		500	{string}	string	"error"
