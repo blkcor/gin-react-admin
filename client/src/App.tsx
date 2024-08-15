@@ -3,12 +3,13 @@ import './App.css'
 import Layout from '@/layouts/default'
 import Home from '@/views/home/index'
 import About from '@/views/about'
+import Login from './views/login'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/login',
-      element: <h1>login</h1>,
+      element: <Login />,
     },
     {
       path: '/',

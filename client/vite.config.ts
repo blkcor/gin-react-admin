@@ -10,4 +10,14 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  server: {
+    proxy: {
+      //http://localhost:3000/api/bar => http://localhost:8000/bar
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })
