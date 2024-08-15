@@ -21,6 +21,7 @@ func Captcha(context *gin.Context) {
 	}
 	//设置过期时间为一分钟
 	cache.RDB.Set(context, clientIP.(string), str, time.Minute)
+	logger.Info("客户端IP:", clientIP)
 	logger.Info("获取到验证码为:", str)
 	//设置响应头，将验证码图片响应出去
 	context.Writer.Header().Set("Content-Type", "image/png")

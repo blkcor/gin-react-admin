@@ -1,9 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './App.css'
-import Layout from '@/layouts/default'
+import HomepageLayout from '@/layouts/home'
 import Home from '@/views/home/index'
 import About from '@/views/about'
 import Login from './views/login'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import '@radix-ui/themes/styles.css'
+import { Theme } from '@radix-ui/themes'
 
 function App() {
   const router = createBrowserRouter([
@@ -13,7 +16,7 @@ function App() {
     },
     {
       path: '/',
-      element: <Layout />,
+      element: <HomepageLayout />,
       children: [
         {
           path: '/',
@@ -30,7 +33,15 @@ function App() {
       ],
     },
   ])
-  return <RouterProvider router={router} />
+
+  return (
+    <>
+      <Theme>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </Theme>
+    </>
+  )
 }
 
 export default App
