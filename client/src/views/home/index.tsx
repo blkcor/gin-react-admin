@@ -2,7 +2,7 @@ import { useAtom } from 'jotai'
 import { doubleCountAtom, countAtom, sumAtom1, sumAtom2 } from '@/stores/countAtom'
 // import Demo from '@/components/Demo'
 // import { Suspense } from 'react'
-import Button from '@mui/material/Button'
+
 const Home = () => {
   const [count, setCount] = useAtom(countAtom)
   const [doubleCount] = useAtom(doubleCountAtom)
@@ -20,12 +20,8 @@ const Home = () => {
       </Suspense> */}
       <p>HOME PAGE</p>
       <div className="flex gap-10 justify-center">
-        <Button variant="contained" onClick={() => setCount((c) => c + 1)}>
-          点我+1
-        </Button>
-        <Button variant="contained" onClick={() => setCount((c) => c - 1)}>
-          点我-1
-        </Button>
+        <button onClick={() => setCount((c) => c + 1)}>点我+1</button>
+        <button onClick={() => setCount((c) => c - 1)}>点我-1</button>
       </div>
     </div>
   )

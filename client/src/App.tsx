@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Theme>
+      <Theme className="h-full w-full">
         <RouterProvider router={router} />
         <ToastContainer />
       </Theme>
