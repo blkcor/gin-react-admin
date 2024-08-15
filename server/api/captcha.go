@@ -9,7 +9,15 @@ import (
 	"time"
 )
 
-// Captcha 验证码
+// Captcha godoc
+//
+//	@Summary		获取验证码
+//	@Description	获取验证码接口
+//	@Tags			Captcha
+//	@Produce		image/png
+//	@Success		200	{string}	string	"ok"
+//	@Failure		500	{string}	string	"error"
+//	@Router			/captcha [get]
 func Captcha(context *gin.Context) {
 	img, str := captcha.GenerateCaptchaAndImg(context)
 	// store the captcha code in the redis

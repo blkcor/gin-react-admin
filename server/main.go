@@ -5,6 +5,7 @@ import (
 	"github.com/blkcor/gin-react-admin/core/cache"
 	"github.com/blkcor/gin-react-admin/core/db"
 	"github.com/blkcor/gin-react-admin/core/server"
+	_ "github.com/blkcor/gin-react-admin/docs"
 	"sync"
 )
 
