@@ -55,6 +55,7 @@ const Login = () => {
 
   const [openEye, setOpenEye] = useState(false)
   const passwordInputRef = useRef<HTMLInputElement | null>(null)
+  const [isLogin, setIsLogin] = useState<boolean>(false)
 
   useEffect(() => {
     if (passwordInputRef.current) {
@@ -63,11 +64,10 @@ const Login = () => {
   }, [openEye])
 
   const onSubmit = async (data: LoginFormProps) => {
-    console.log('login form', data)
-    // Handle login logic here
     try {
+      setIsLogin(true)
       const result = await apis.login(data)
-      console.log('获取到的登录结果', result)
+
       setUser({
         userInfo: result.data,
         token: result.token,
@@ -84,6 +84,7 @@ const Login = () => {
       //跳转到主页
       navigate('/')
     } catch (e) {
+      setIsLogin(false)
       if (e instanceof Error) {
         toast.error('登录失败：' + e.message, {
           position: 'top-center',
@@ -194,12 +195,27 @@ const Login = () => {
                 </div>
               </div>
               <div className="flex gap-6">
-                <button type="button" className="w-full bg-[#18181C] border-[#598B8E] border-2 border-solid text-[#598B8E] py-3 rounded-md hover:text-white transition duration-300">
+                <button
+                  disabled={isLogin}
+                  type="button"
+                  className={`w-full bg-[#18181C] border-[#598B8E] border-2 border-solid text-[#598B8E] py-3 rounded-md  transition duration-300 ${
+                    isLogin ? ' cursor-not-allowed' : 'hover:text-white'
+                  }`}
+                >
                   一键体验
                 </button>
-                <button type="submit" className="w-full bg-[#598B8E] text-black py-3 rounded-md hover:bg-[#598B8E]/50 transition duration-300">
-                  登录
-                </button>
+                {isLogin ? (
+                  <button disabled className="w-full bg-[#598B8E] text-black py-3 rounded-md cursor-not-allowed transition duration-300">
+                    <div className="flex gap-2 justify-center items-center">
+                      正在登录
+                      <Spinner size={'2'} loading={true} />
+                    </div>
+                  </button>
+                ) : (
+                  <button type="submit" className="w-full bg-[#598B8E] text-black py-3 rounded-md hover:bg-[#598B8E]/50 transition duration-300">
+                    登录
+                  </button>
+                )}
               </div>
             </form>
           </div>
