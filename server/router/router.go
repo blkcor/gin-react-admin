@@ -49,10 +49,11 @@ func Init() {
 	Router.Use(gin.Recovery())
 	Router.GET("/captcha", api.Captcha)
 	Router.POST("/login", api.Login)
-	v1 := Router.Group("/api/v1")
+	vs1 := Router.Group("/v1")
+	vs1.Use(middleware.AuthMiddleWare())
+	vs1.Use(middleware.CasbinHandler())
 	{
-		v1.Use(middleware.AuthMiddleWare())
-		v1.Use(middleware.CasbinHandler())
+		//受保护的路由
 	}
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	logger.Info("路由初始化成功!")

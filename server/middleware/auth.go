@@ -11,7 +11,7 @@ import (
 func AuthMiddleWare() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		if !IsUserLogin(context) {
-			context.JSON(http.StatusForbidden, gin.H{
+			context.JSON(http.StatusUnauthorized, gin.H{
 				"code":    enums.ToLoginCode,
 				"message": "Please login first!",
 			})

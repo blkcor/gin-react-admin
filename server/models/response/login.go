@@ -1,9 +1,9 @@
 package response
 
 type LoginResponse struct {
-	Token    string   `json:"token"`
-	Message  string   `json:"message"`
-	UserInfo UserInfo `json:"userInfo"`
+	Token   string   `json:"token"`
+	Message string   `json:"message"`
+	Data    UserInfo `json:"data"`
 }
 
 type UserInfo struct {
