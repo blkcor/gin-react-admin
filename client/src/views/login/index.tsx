@@ -4,9 +4,12 @@ import { PersonIcon, EyeOpenIcon, EyeClosedIcon, GearIcon, LockClosedIcon } from
 import { useEffect, useRef, useState } from 'react'
 import { useRequest } from 'alova/client'
 import apis from '@/apis/apis'
-import { toast } from 'react-toastify'
+import { Bounce, toast } from 'react-toastify'
 import { useForm, Controller } from 'react-hook-form'
 import { Spinner } from '@radix-ui/themes'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/stores/userAtom'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
   interface LoginFormProps {
     username: string
@@ -19,7 +22,9 @@ const Login = () => {
     immediate: true, // 是否立即发送请求，默认为true
   })
 
+  const navigate = useNavigate()
   const [captchaSrc, setCaptchaSrc] = useState<string | undefined>(undefined)
+  const [, setUser] = useAtom(userAtom)
 
   onError((event) => {
     toast.error(event.error, {
@@ -57,9 +62,32 @@ const Login = () => {
     }
   }, [openEye])
 
-  const onSubmit = (data: LoginFormProps) => {
+  const onSubmit = async (data: LoginFormProps) => {
     console.log('login form', data)
     // Handle login logic here
+    try {
+      const result = await apis.login(data)
+      console.log('获取到的登录结果', result)
+      setUser({
+        userInfo: result.data,
+        token: result.token,
+      })
+      localStorage.setItem('token', result.token)
+      localStorage.setItem('userInfo', JSON.stringify(result.data))
+      toast.success('登录成功!', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        transition: Bounce,
+      })
+      //跳转到主页
+      navigate('/')
+    } catch (e) {
+      toast.error('登录失败', {
+        position: 'top-center',
+      })
+    }
   }
 
   const handleRefreshCaptcha = () => {

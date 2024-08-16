@@ -1,12 +1,14 @@
+import { lazy } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import HomepageLayout from '@/layouts/home'
-import Home from '@/views/home/index'
-import About from '@/views/about'
-import Login from './views/login'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
+
+const HomepageLayout = lazy(() => import('@/layouts/home'))
+const Home = lazy(() => import('@/views/home/index'))
+const About = lazy(() => import('@/views/about/index'))
+const Login = lazy(() => import('@/views/login/index'))
 
 function App() {
   const router = createBrowserRouter([

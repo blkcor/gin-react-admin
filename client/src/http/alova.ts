@@ -40,7 +40,7 @@ export const alovaIns = createAlova({
     // 如果响应类型是 JSON
     if (contentType.includes('application/json')) {
       const json = await response.json()
-      if (response.status !== 200 || !json.success) {
+      if (response.status !== 200) {
         if (json.errMsg) {
           if (!computedToken.get() && response.status === 401) {
             // do nothing
@@ -54,7 +54,7 @@ export const alovaIns = createAlova({
           throw new Error(json.message)
         }
       }
-      return json.data
+      return json
     }
     // 如果响应类型是文件
     if (contentType.includes('application/octet-stream') || contentType.includes('image/') || contentType.includes('application/pdf')) {
