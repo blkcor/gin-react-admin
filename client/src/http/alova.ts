@@ -2,6 +2,7 @@ import { createAlova } from 'alova'
 import fetchAdapter from 'alova/fetch'
 import { toast } from 'react-toastify'
 import ReactHook from 'alova/react'
+import { ResponseCode } from '@/enums/responseCode'
 
 //装饰器模式
 function getToken() {
@@ -41,17 +42,19 @@ export const alovaIns = createAlova({
     if (contentType.includes('application/json')) {
       const json = await response.json()
       if (response.status !== 200) {
-        if (json.errMsg) {
-          if (!computedToken.get() && response.status === 401) {
-            // do nothing
-          } else {
-            toast.error(json.errMsg, {
+        if (response.status === 401 || !computedToken.get()) {
+          if (json.code === ResponseCode.ToLoginCode) {
+            computedToken.clear()
+            localStorage.clear()
+            toast.error('认证失败，请重新登录', {
               position: 'top-center',
             })
+            window.dispatchEvent(new CustomEvent('unauthorized', { detail: '/login' }))
           }
-          throw new Error(json.errMsg)
         } else {
-          throw new Error(json.message)
+          toast.error(json.message, {
+            position: 'top-center',
+          })
         }
       }
       return json

@@ -84,9 +84,11 @@ const Login = () => {
       //跳转到主页
       navigate('/')
     } catch (e) {
-      toast.error('登录失败', {
-        position: 'top-center',
-      })
+      if (e instanceof Error) {
+        toast.error('登录失败：' + e.message, {
+          position: 'top-center',
+        })
+      }
     }
   }
 
