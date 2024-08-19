@@ -1,25 +1,18 @@
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import Aside from '@/components/Aside'
+import Header from '@/components/Header'
+import { Outlet } from 'react-router-dom'
 
 export default function Root() {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const handleUnauthorized = (event: CustomEventInit) => {
-      navigate(event.detail)
-    }
-
-    window.addEventListener('unauthorized', handleUnauthorized)
-
-    return () => {
-      window.removeEventListener('unauthorized', handleUnauthorized)
-    }
-  }, [navigate])
   return (
-    <>
-      <header>this is header!</header>
-      <Outlet />
-      <footer>this is footer!</footer>
-    </>
+    <div className="flex min-h-screen">
+      <Aside />
+      <div className="flex flex-col flex-grow">
+        <Header />
+        <main className="flex-grow bg-[#EFEFF5]">
+          <Outlet />
+        </main>
+        <footer className="p-4 text-center">this is footer!</footer>
+      </div>
+    </div>
   )
 }

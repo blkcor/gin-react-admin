@@ -10,6 +10,9 @@ const config: Config = {
       cursor: {
         'not-allowed': 'not-allowed',
       },
+      borderColor: {
+        middle: 'rbga(239,239,245,1)',
+      },
     },
   },
   plugins: [],
