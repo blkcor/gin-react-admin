@@ -106,14 +106,14 @@ const Login = () => {
         </Helmet>
       </HelmetProvider>
       <div className="bg-login-bg w-full h-full bg-cover flex items-center justify-center py-6">
-        <div className="bg-[#18181C] px-0 py-10 rounded-lg shadow-xl flex flex-col justify-center md:flex-row items-center max-w-4xl w-full">
-          <img src={logoTransparent} alt="Logo" className="w-72 h-72 object-cover mb-6 md:mb-0 md:mr-2" />
+        <div className="bg-[#18181C] px-4 py-8 rounded-lg shadow-xl flex flex-col justify-center md:flex-row items-center max-w-3xl w-full">
+          <img src={logoTransparent} alt="Logo" className="w-48 h-48 md:w-64 md:h-64 object-contain mb-6 md:mb-0 md:mr-6" />
 
-          <div className="text-[#6a6a6a] p-6 rounded-md w-full max-w-md flex flex-col gap-2">
+          <div className="text-[#6a6a6a] p-4 rounded-md w-full max-w-sm flex flex-col gap-2">
             <h2 className="text-3xl mb-3 text-center">Gin React Admin</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-              <div className="mb-4">
-                <div className="flex flex-col mb-2">{errors.username && <p className="text-red-500 text-xs mt-1">用户名不能为空</p>}</div>
+              <div className="mb-6 relative">
+                <div className="absolute bottom-12">{errors.username && <p className="text-red-500 text-xs mt-1">用户名不能为空</p>}</div>
                 <div>
                   <div className="flex items-center relative">
                     <PersonIcon className="w-5 h-5 absolute left-3" />
@@ -134,8 +134,8 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-              <div className="mb-6">
-                <div className="flex flex-col mb-2">{errors.password && <p className="text-red-500 text-xs mt-1">密码不能为空</p>}</div>
+              <div className="mb-6 relative">
+                <div className="absolute bottom-12">{errors.password && <p className="text-red-500 text-xs mt-1">密码不能为空</p>}</div>
                 <div>
                   <div className="flex items-center relative">
                     <LockClosedIcon className="w-5 h-5 absolute left-3" />
@@ -162,8 +162,8 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-              <div className="mb-6">
-                <div className="flex flex-col mb-2">{errors.captcha && <p className="text-red-500 text-xs mt-1">验证码不能为空</p>}</div>
+              <div className="mb-4 relative">
+                <div className="absolute bottom-12">{errors.captcha && <p className="text-red-500 text-xs mt-1">验证码不能为空</p>}</div>
                 <div>
                   <div className="flex items-center relative">
                     <GearIcon className="w-5 h-5 absolute left-3" />
