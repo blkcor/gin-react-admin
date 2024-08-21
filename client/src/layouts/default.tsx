@@ -5,11 +5,11 @@ import { Outlet } from 'react-router-dom'
 
 export default function Root() {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen transition-all duration-500">
       <Aside />
       <div className="flex flex-col flex-grow">
         <Header />
-        <main className="flex-grow bg-[#EFEFF5] dark:bg-[#111827]">
+        <main className="flex-grow p-3 bg-[#EFEFF5] dark:bg-[#111827]">
           <Outlet />
         </main>
         <Footer />
