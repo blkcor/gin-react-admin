@@ -16,3 +16,18 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+
+@layer components {
+  .layout-border-b {
+    @apply border-solid border-b-2 border-middle;
+  }
+  .layout-border-t {
+    @apply border-solid border-t-2 border-middle;
+  }
+  .layout-border-r {
+    @apply border-solid border-r-2 border-middle;
+  }
+  .layout-border-l {
+    @apply border-solid border-l-2 border-middle;
+  }
+}

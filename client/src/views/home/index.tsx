@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="w-full flex flex-col ">
       <div className="p-2 grid grid-cols-3 gap-4 ">
-        <div className="col-span-1 flex flex-col bg-white p-4 shadow-md">
+        <div className="col-span-1 flex flex-col bg-white dark:bg-gray-800 p-4 shadow-md">
           <div className="flex gap-3">
             <Avatar className="w-16 h-16 rounded-full" src={user.userInfo.avatar} fallback="A" />
             <div className="flex flex-col justify-center">
@@ -33,18 +33,18 @@ const Home = () => {
           <p className="mt-2 text-right text-xs opacity-40">--Oscar Wilde</p>
         </div>
 
-        <div className="col-span-2 flex flex-col bg-white p-4 gap-4 shadow-md">
+        <div className="col-span-2 flex flex-col bg-white dark:bg-gray-800 p-4 gap-4 shadow-md">
           <p className="text-lg font-semibold">✨ 欢迎使用 Gin React Admin 1.0</p>
           <p className="text-sm opacity-60">GRA(Gin-React-Admin)是一个基于Gin和React的管理模板项目。该项目旨在提供一个通用的后端管理系统基础设施， 帮助开发人员快速构建具有响应式界面的管理面板。</p>
           <div className="flex gap-4 mt-4 justify-end">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">开发文档</button>
-            <button className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">代码仓库</button>
+            <button className="px-4 py-2 bg-blue-500 text-white dark:text-black rounded-md hover:bg-blue-600">开发文档</button>
+            <button className="px-4 py-2 bg-gray-500 text-white dark:text-black rounded-md hover:bg-gray-600">代码仓库</button>
           </div>
         </div>
       </div>
 
       <div className="p-2 grid grid-cols-4 gap-4 ">
-        <div className="col-span-2 flex flex-col bg-white py-2 shadow-md">
+        <div className="col-span-2 flex flex-col bg-white dark:bg-gray-800 py-2 shadow-md">
           <div className="flex font-bold text-lg p-4 border-b-[1px] border-middle">💯 特性</div>
           <div className="flex flex-col py-4 px-6 opacity-90 gap-4 text-sm">
             <p>🚀 快速：在五分钟内构建一个生产管理面板应用程序。</p>
@@ -59,7 +59,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="col-span-2 flex flex-col bg-white py-2 shadow-md">
+        <div className="col-span-2 flex flex-col bg-white dark:bg-gray-800 py-2 shadow-md">
           <div className="flex font-bold text-lg p-4 border-b-[1px] border-middle">🛠️ 技术栈</div>
           <div className="flex flex-col py-4 px-6 opacity-90 gap-4 text-sm">
             <p>🚀 快速：在五分钟内构建一个生产管理面板应用程序。</p>

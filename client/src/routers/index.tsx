@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import HomepageLayout from '@/layouts/home'
+import HomepageLayout from '@/layouts/default'
 import { HomeLoader } from './loader'
 import Permission from '@/components/Permission'
 

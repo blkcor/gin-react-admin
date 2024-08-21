@@ -2,25 +2,52 @@ import { userAtom } from '@/stores/userAtom'
 import { TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon } from '@radix-ui/react-icons'
 import { Avatar } from '@radix-ui/themes'
 import { useAtomValue } from 'jotai'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
   const user = useAtomValue(userAtom)
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    return isDarkMode
+  })
+
+  useEffect(() => {
+    // Check for user preference in localStorage or system preference
+    const isDarkMode = localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    setDarkMode(isDarkMode)
+  }, [])
+
+  useEffect(() => {
+    // Apply dark mode class to body
+    if (darkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+    // Save preference tolocalStorage
+    localStorage.setItem('darkMode', darkMode.toString())
+  }, [darkMode])
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+  }
+
   return (
-    <div className="w-full flex py-2 px-4 gap-3 justify-between items-center border-solid border-b-2 border-middle">
+    <div className="w-full flex p-[15.5px] gap-3 justify-between items-center layout-border-b bg-white dark:bg-gray-800">
       {/* 隐藏侧边栏的图标 */}
       <TextAlignLeftIcon className="w-6 h-6 cursor-pointer" />
-      {/*TODO: tabs */}
-      <div className="min-w-[70%] bg-red-200"></div>
+      <div className="flex-1"></div>
       {/* 功能栏 */}
       <div className="flex gap-3 items-center ">
-        <MoonIcon className="w-4 h-4 cursor-pointer" />
-        <SunIcon className="w-4 h-4 cursor-pointer" />
+        <div onClick={toggleDarkMode}>{darkMode ? <MoonIcon className="w-4 h-4 cursor-pointer" /> : <SunIcon className="w-4 h-4 cursor-pointer" />}</div>
+
         <GitHubLogoIcon className="w-4 h-4 cursor-pointer" />
         <EnterFullScreenIcon className="w-4 h-4 cursor-pointer" />
         <div className="flex items-center flex-1 gap-2">
           <Avatar className="w-8 h-8 rounded-full" src={user.userInfo.avatar} fallback="A" />
           <div className="flex flex-col  items-center">
-            <span className="text-xs text-black font-semibold">{user.userInfo.userRole}</span>
+            <span className="text-xs text-black dark:text-white font-semibold">{user.userInfo.userRole}</span>
             <span className="text-xs text-[#7E7E7E]">[{user.userInfo.roleCode}]</span>
           </div>
         </div>
