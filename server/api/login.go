@@ -80,6 +80,8 @@ func Login(context *gin.Context) {
 			Username: user.Username,
 			Email:    user.Email,
 			Avatar:   user.Avatar,
+			UserRole: role.RoleName,
+			RoleCode: role.RoleCode,
 		},
 	})
 }

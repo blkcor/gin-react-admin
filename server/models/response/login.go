@@ -11,4 +11,6 @@ type UserInfo struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Avatar   string `json:"avatar"`
+	UserRole string `json:"userRole"`
+	RoleCode string `json:"roleCode"`
 }
