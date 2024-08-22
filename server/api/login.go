@@ -65,7 +65,7 @@ func Login(context *gin.Context) {
 		})
 		return
 	}
-	token, err := jwt.GenToken(user.ID, user.Username, user.Email, role.RoleCode, section.AppConfig.AccessKey)
+	token, err := jwt.GenToken(user.ID, user.Username, user.Email, role.RoleCode, role.ID, section.AppConfig.AccessKey)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"message": "生成 token 失败",

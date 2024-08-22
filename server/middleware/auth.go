@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"github.com/blkcor/gin-react-admin/config/section"
 	"github.com/blkcor/gin-react-admin/enums"
 	"github.com/blkcor/gin-react-admin/utils/jwt"
 	"github.com/gin-gonic/gin"
@@ -25,9 +24,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 
 func IsUserLogin(context *gin.Context) bool {
 	//get jwt token from request header
-	token := context.GetHeader("Authorization")
-	//verify if the token is valid
-	_, err := jwt.ParseToken(token, section.AppConfig.AccessKey)
+	_, err := jwt.GetClaimFromContext(context)
 	if err != nil {
 		return false
 	}

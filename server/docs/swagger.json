@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8080",
+    "host": "localhost:8000",
     "basePath": "/",
     "paths": {
         "/captcha": {
@@ -46,11 +46,6 @@
         },
         "/login": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "管理登录接口，用户可以通过该接口进行登录。登录时需要提供用户名、密码和验证码。接口会校验用户的合法性、密码和验证码，如果校验成功，则生成 JWT token 并返回。如果校验失败，则返回相应的错误信息。",
                 "consumes": [
                     "application/json"
@@ -103,6 +98,52 @@
                     }
                 }
             }
+        },
+        "/v1/menu": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获取用户菜单接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜单相关接口"
+                ],
+                "summary": "获取菜单",
+                "responses": {
+                    "200": {
+                        "description": "获取菜单成功，返回当前用户拥有的菜单信息",
+                        "schema": {
+                            "$ref": "#/definitions/response.MenuListResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误，返回详细错误信息",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "用户认证失败，包括用户名不存在、密码错误或验证码错误",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误，返回详细错误信息",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -128,14 +169,53 @@
         "response.LoginResponse": {
             "type": "object",
             "properties": {
+                "data": {
+                    "$ref": "#/definitions/response.UserInfo"
+                },
                 "message": {
                     "type": "string"
                 },
                 "token": {
                     "type": "string"
+                }
+            }
+        },
+        "response.MenuGroup": {
+            "type": "object",
+            "properties": {
+                "child_menus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.MenuItem"
+                    }
                 },
-                "userInfo": {
-                    "$ref": "#/definitions/response.UserInfo"
+                "parent_menu": {
+                    "$ref": "#/definitions/response.MenuItem"
+                }
+            }
+        },
+        "response.MenuItem": {
+            "type": "object",
+            "properties": {
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.MenuListResponse": {
+            "type": "object",
+            "properties": {
+                "menu_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.MenuGroup"
+                    }
                 }
             }
         },
@@ -148,8 +228,14 @@
                 "email": {
                     "type": "string"
                 },
+                "roleCode": {
+                    "type": "string"
+                },
                 "userId": {
                     "type": "integer"
+                },
+                "userRole": {
+                    "type": "string"
                 },
                 "username": {
                     "type": "string"

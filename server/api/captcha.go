@@ -6,6 +6,7 @@ import (
 	"github.com/blkcor/gin-react-admin/utils/captcha"
 	"github.com/gin-gonic/gin"
 	"image/png"
+	"net/http"
 	"time"
 )
 
@@ -23,7 +24,7 @@ func Captcha(context *gin.Context) {
 	// store the captcha code in the redis
 	clientIP, ok := context.Get("ClientIP")
 	if !ok {
-		context.JSON(500, gin.H{
+		context.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Get client ip failed",
 		})
 	}

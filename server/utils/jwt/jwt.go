@@ -3,6 +3,8 @@ package jwt
 import (
 	"errors"
 	"fmt"
+	"github.com/blkcor/gin-react-admin/config/section"
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"strings"
 	"time"
@@ -13,17 +15,19 @@ type Claim struct {
 	UserID   uint32 `json:"user_id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
-	Role     string `json:"role"`
+	RoleId   uint32 `json:"role_id"`
+	RoleCode string `json:"role_code"`
 	jwt.RegisteredClaims
 }
 
 // GenToken 生成jwt签名
-func GenToken(userId uint32, username string, email string, role string, accessKey string) (string, error) {
+func GenToken(userId uint32, username string, email string, roleCode string, roleId uint32, accessKey string) (string, error) {
 	claims := Claim{
 		userId,
 		username,
 		email,
-		role,
+		roleId,
+		roleCode,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)), // 定义过期时间
 			Issuer:    "blkcor",                                           // 签发人
@@ -53,8 +57,22 @@ func ParseToken(tokenString string, accessKey string) (*Claim, error) {
 	}
 
 	if token.Valid {
-		fmt.Println("令牌有效")
 		return claims, nil
 	}
 	return nil, errors.New("无效的令牌")
+}
+
+// GetClaimFromContext 从gin.Context中获取token并解析
+func GetClaimFromContext(ctx *gin.Context) (*Claim, error) {
+	auth := ctx.Request.Header.Get("Authorization")
+	if !strings.HasPrefix(auth, "Bearer ") {
+		return nil, errors.New("无效的令牌")
+	}
+	token := auth[7:]
+
+	claim, err := ParseToken(token, section.AppConfig.AccessKey)
+	if err != nil {
+		return nil, err
+	}
+	return claim, nil
 }

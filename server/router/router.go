@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/blkcor/gin-react-admin/api"
+	v1 "github.com/blkcor/gin-react-admin/api/v1"
 	"github.com/blkcor/gin-react-admin/core/logger"
 	"github.com/blkcor/gin-react-admin/docs"
 	"github.com/blkcor/gin-react-admin/middleware"
@@ -33,7 +34,7 @@ func InitDocInfo() {
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      localhost:8080
+// @host      localhost:8000
 // @BasePath  /
 
 // @securityDefinitions.apikey ApiKeyAuth
@@ -54,6 +55,7 @@ func Init() {
 	vs1.Use(middleware.CasbinHandler())
 	{
 		//受保护的路由
+		vs1.GET("/menu", v1.GetMenu)
 	}
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	logger.Info("路由初始化成功!")

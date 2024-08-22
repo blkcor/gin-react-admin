@@ -15,12 +15,37 @@ definitions:
     type: object
   response.LoginResponse:
     properties:
+      data:
+        $ref: '#/definitions/response.UserInfo'
       message:
         type: string
       token:
         type: string
-      userInfo:
-        $ref: '#/definitions/response.UserInfo'
+    type: object
+  response.MenuGroup:
+    properties:
+      child_menus:
+        items:
+          $ref: '#/definitions/response.MenuItem'
+        type: array
+      parent_menu:
+        $ref: '#/definitions/response.MenuItem'
+    type: object
+  response.MenuItem:
+    properties:
+      icon:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  response.MenuListResponse:
+    properties:
+      menu_groups:
+        items:
+          $ref: '#/definitions/response.MenuGroup'
+        type: array
     type: object
   response.UserInfo:
     properties:
@@ -28,12 +53,16 @@ definitions:
         type: string
       email:
         type: string
+      roleCode:
+        type: string
       userId:
         type: integer
+      userRole:
+        type: string
       username:
         type: string
     type: object
-host: localhost:8080
+host: localhost:8000
 info:
   contact:
     email: blkcor.dev@gmail.com
@@ -99,11 +128,39 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      security:
-      - ApiKeyAuth: []
       summary: 登录
       tags:
       - 登录相关接口
+  /v1/menu:
+    get:
+      description: 获取用户菜单接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取菜单成功，返回当前用户拥有的菜单信息
+          schema:
+            $ref: '#/definitions/response.MenuListResponse'
+        "400":
+          description: 参数错误，返回详细错误信息
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: 用户认证失败，包括用户名不存在、密码错误或验证码错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器内部错误，返回详细错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取菜单
+      tags:
+      - 菜单相关接口
 securityDefinitions:
   ApiKeyAuth:
     in: header
