@@ -1,5 +1,5 @@
 import { userAtom } from '@/stores/userAtom'
-import { TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon } from '@radix-ui/react-icons'
+import { TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon, ExitFullScreenIcon } from '@radix-ui/react-icons'
 import { Avatar } from '@radix-ui/themes'
 import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
@@ -11,6 +11,7 @@ const Header = () => {
     const isDarkMode = localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     return isDarkMode
   })
+  const [isFullScreen, setIsFullScreen] = useState(false)
 
   useEffect(() => {
     // Check for user preference in localStorage or system preference
@@ -33,6 +34,16 @@ const Header = () => {
     setDarkMode(!darkMode)
   }
 
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+      setIsFullScreen(true)
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen()
+      setIsFullScreen(false)
+    }
+  }
+
   return (
     <div className="w-full flex p-[15.5px] gap-3 justify-between items-center layout-border-b bg-white dark:bg-gray-800">
       {/* 隐藏侧边栏的图标 */}
@@ -42,8 +53,10 @@ const Header = () => {
       <div className="flex gap-3 items-center ">
         <div onClick={toggleDarkMode}>{darkMode ? <MoonIcon className="w-4 h-4 cursor-pointer" /> : <SunIcon className="w-4 h-4 cursor-pointer" />}</div>
 
-        <GitHubLogoIcon className="w-4 h-4 cursor-pointer" />
-        <EnterFullScreenIcon className="w-4 h-4 cursor-pointer" />
+        <a href="https://www.github.com/blkcor" target="_blank">
+          <GitHubLogoIcon className="w-4 h-4 cursor-pointer" />
+        </a>
+        <button onClick={toggleFullScreen}>{isFullScreen ? <ExitFullScreenIcon className="w-4 h-4 cursor-pointer" /> : <EnterFullScreenIcon className="w-4 h-4 cursor-pointer" />}</button>
         <div className="flex items-center flex-1 gap-2">
           <Avatar className="w-8 h-8 rounded-full" src={user.userInfo.avatar} fallback="A" />
           <div className="flex flex-col  items-center">
