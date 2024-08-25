@@ -1,11 +1,12 @@
 package response
 
+// LoginResponse 登录响应
 type LoginResponse struct {
-	Token   string   `json:"token"`
-	Message string   `json:"message"`
-	Data    UserInfo `json:"data"`
+	BaseResponse[UserInfo]
+	Token string `json:"token"`
 }
 
+// UserInfo 用户信息
 type UserInfo struct {
 	UserId   uint32 `json:"userId"`
 	Username string `json:"username"`

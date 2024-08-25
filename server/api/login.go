@@ -52,6 +52,7 @@ func Login(context *gin.Context) {
 	ok := captcha.VerifyCaptcha(context, loginRequest.Captcha)
 	if !ok {
 		context.JSON(http.StatusUnauthorized, gin.H{
+			"success": false,
 			"message": "验证码错误",
 		})
 		return
@@ -73,15 +74,18 @@ func Login(context *gin.Context) {
 		return
 	}
 	context.JSON(http.StatusOK, response.LoginResponse{
-		Token:   token,
-		Message: "登录成功",
-		Data: response.UserInfo{
-			UserId:   user.ID,
-			Username: user.Username,
-			Email:    user.Email,
-			Avatar:   user.Avatar,
-			UserRole: role.RoleName,
-			RoleCode: role.RoleCode,
+		Token: token,
+		BaseResponse: response.BaseResponse[response.UserInfo]{
+			Success: true,
+			Message: "登录成功",
+			Data: response.UserInfo{
+				UserId:   user.ID,
+				Username: user.Username,
+				Email:    user.Email,
+				Avatar:   user.Avatar,
+				UserRole: role.RoleName,
+				RoleCode: role.RoleCode,
+			},
 		},
 	})
 }

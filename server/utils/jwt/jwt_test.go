@@ -5,7 +5,7 @@ import (
 )
 
 func TestGenToken(t *testing.T) {
-	token, err := GenToken(1, "blkcor", "blkcor.dev@gmail.com", "admin", "123456")
+	token, err := GenToken(1, "blkcor", "blkcor.dev@gmail.com", "admin", 123, "123456")
 	if err != nil {
 		t.Error(err)
 	}

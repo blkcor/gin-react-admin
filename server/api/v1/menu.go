@@ -56,7 +56,7 @@ func GetMenu(context *gin.Context) {
 		}
 	}
 
-	var result response.MenuListResponse
+	var result []response.MenuGroup
 
 	for _, f := range flm {
 		menuGroup := response.MenuGroup{}
@@ -76,10 +76,14 @@ func GetMenu(context *gin.Context) {
 				menuGroup.ChildMenus = append(menuGroup.ChildMenus, sMenuItem)
 			}
 		}
-		result.MenuGroups = append(result.MenuGroups, menuGroup)
+		result = append(result, menuGroup)
 	}
 
-	context.JSON(http.StatusOK, gin.H{
-		"data": result,
+	context.JSON(http.StatusOK, response.MenuListResponse{
+		BaseResponse: response.BaseResponse[[]response.MenuGroup]{
+			Success: true,
+			Message: "获取菜单成功",
+			Data:    result,
+		},
 	})
 }
