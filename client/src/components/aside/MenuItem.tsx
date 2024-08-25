@@ -11,10 +11,10 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
   return (
-    <div className="flex items-center p-2 gap-2 rounded cursor-pointer text-[1em]">
-      <Icon icon={'carbon:' + item.icon} width={20} height={20} />
+    <div className="flex items-center py-4 pl-10 gap-3 rounded cursor-pointer hover:bg-[#ECF5FF] dark:hover:bg-[#343435]">
+      <Icon icon={'carbon:' + item.icon} className="text-xl" />
 
-      <span>{item.name}</span>
+      <span className="text-[14px]">{item.name}</span>
     </div>
   )
 }
