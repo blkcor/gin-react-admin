@@ -21,3 +21,18 @@ export interface UserInfo {
   userRole: string
   roleCode: string
 }
+
+/**用户菜单响应结果 */
+
+export interface MenuListResponse extends BaseResponse<MenuGroup[]> { }
+
+export interface MenuGroup {
+  parentMenu: MenuItem
+  childMenus: MenuItem[]
+}
+
+export interface MenuItem {
+  id: number
+  name: string
+  icon: string
+}

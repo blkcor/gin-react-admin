@@ -43,6 +43,7 @@ const Login = () => {
   const {
     control,
     handleSubmit,
+    resetField,
     formState: { errors },
   } = useForm<LoginFormProps>({
     mode: 'onBlur',
@@ -67,7 +68,17 @@ const Login = () => {
     try {
       setIsLogin(true)
       const result = await apis.login(data)
-
+      if (!result.success) {
+        setIsLogin(false)
+        toast.error(result.message, {
+          position: 'top-center',
+        })
+        //刷新验证码
+        send()
+        //清空验证码输入框
+        resetField('captcha')
+        return
+      }
       setUser({
         userInfo: result.data,
         token: result.token,

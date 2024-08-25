@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 
 const Home = () => {
   const [user, setUser] = useAtom(userAtom)
-
   useEffect(() => {
     // 页面刷新的时候从localStorage进行初始化userAtom
     if (!user.token || !user.userInfo.userId) {
