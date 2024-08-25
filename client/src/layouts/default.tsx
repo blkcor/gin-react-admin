@@ -1,11 +1,11 @@
-import Aside from '@/components/Aside'
+import Aside from '@/components/aside/Aside'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import { Outlet } from 'react-router-dom'
 
 export default function Root() {
   return (
-    <div className="flex min-h-screen transition-all duration-500">
+    <div className="flex min-h-screen transition-all duration-500 w-full ">
       <Aside />
       <div className="flex flex-col flex-grow">
         <Header />

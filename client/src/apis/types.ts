@@ -27,8 +27,8 @@ export interface UserInfo {
 export interface MenuListResponse extends BaseResponse<MenuGroup[]> { }
 
 export interface MenuGroup {
-  parentMenu: MenuItem
-  childMenus: MenuItem[]
+  parent_menu: MenuItem
+  child_menus: MenuItem[]
 }
 
 export interface MenuItem {
