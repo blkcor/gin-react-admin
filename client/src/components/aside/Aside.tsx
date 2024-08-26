@@ -37,16 +37,16 @@ const Aside = () => {
       <div className="flex flex-col">
         <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
           {/* logo区域 */}
-          <motion.div className="flex items-center p-2 gap-2">
-            <img src={logo} alt="logo" className="w-10 h-10 " />
+          <motion.div layout className="flex items-center p-2 gap-2 ">
+            <img src={logo} alt="logo" className="w-10 h-10 flex-shrink-0" />
             <AnimatePresence>
               <motion.span
-                layout
+                style={{ minWidth: systemConfig.collapsed ? '0px' : '160px' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="text-2xs font-bold text-gray-800 dark:text-white"
+                transition={{ duration: 0.1, ease: 'easeInOut' }}
+                className="text-2xs font-bold text-gray-800 dark:text-white flex-auto"
               >
                 {!systemConfig.collapsed && 'Gin React Admin'}
               </motion.span>

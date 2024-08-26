@@ -47,7 +47,11 @@ const Home = () => {
           <p className="text-sm opacity-60">GRA(Gin-React-Admin)是一个基于Gin和React的管理模板项目。该项目旨在提供一个通用的后端管理系统基础设施， 帮助开发人员快速构建具有响应式界面的管理面板。</p>
           <div className="flex gap-4 mt-4 justify-end">
             <button className="px-4 py-2 bg-blue-500 text-white dark:text-black rounded-md hover:bg-blue-600">开发文档</button>
-            <button className="px-4 py-2 bg-gray-500 text-white dark:text-black rounded-md hover:bg-gray-600">代码仓库</button>
+            <button className="px-4 py-2 bg-gray-500 text-white dark:text-black rounded-md hover:bg-gray-600">
+              <a href="http://www.github.com/blkcor/gin-react-admin" target="_blank">
+                代码仓库
+              </a>
+            </button>
           </div>
         </div>
       </div>
