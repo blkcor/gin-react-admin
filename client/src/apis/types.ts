@@ -12,6 +12,9 @@ export interface LoginResponse extends BaseResponse<UserInfo> {
   token: string
 }
 
+/**退出登录响应结果 */
+export interface LogoutResponse extends BaseResponse<null> { }
+
 /**用户信息 */
 export interface UserInfo {
   userId: number
@@ -23,7 +26,6 @@ export interface UserInfo {
 }
 
 /**用户菜单响应结果 */
-
 export interface MenuListResponse extends BaseResponse<MenuGroup[]> { }
 
 export interface MenuGroup {
