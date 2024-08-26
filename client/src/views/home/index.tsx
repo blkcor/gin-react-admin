@@ -1,3 +1,4 @@
+import { systemAtom } from '@/stores/systemAtom'
 import { userAtom } from '@/stores/userAtom'
 import { Avatar } from '@radix-ui/themes'
 import { useAtom } from 'jotai'
@@ -5,8 +6,10 @@ import { useEffect } from 'react'
 
 const Home = () => {
   const [user, setUser] = useAtom(userAtom)
+  const [systemConfig, setSystemConfig] = useAtom(systemAtom)
+
   useEffect(() => {
-    // 页面刷新的时候从localStorage进行初始化userAtom
+    // 从localStorage进行初始化userAtom
     if (!user.token || !user.userInfo.userId) {
       const token = localStorage.getItem('token')!
       const userInfo = JSON.parse(localStorage.getItem('userInfo')!)
@@ -14,6 +17,13 @@ const Home = () => {
         token,
         userInfo,
       })
+    }
+
+    // 从localStorage进行初始化systemAtom
+    if (!localStorage.getItem('systemConfig')) {
+      localStorage.setItem('systemConfig', JSON.stringify(systemConfig))
+    } else {
+      setSystemConfig(JSON.parse(localStorage.getItem('systemConfig')!))
     }
   }, [])
 

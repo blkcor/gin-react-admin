@@ -4,9 +4,10 @@ import { MenuGroup as MenuGroupType } from '@/apis/types'
 
 interface AsideMenuProps {
   menuData: MenuGroupType[]
+  collapsed: boolean
 }
 
-const AsideMenu: React.FC<AsideMenuProps> = ({ menuData }) => {
+const AsideMenu: React.FC<AsideMenuProps> = ({ menuData, collapsed }) => {
   const [openMenuId, setOpenMenuId] = useState<number | null>(null)
 
   const handleMenuToggle = (menuId: number) => {
@@ -17,6 +18,7 @@ const AsideMenu: React.FC<AsideMenuProps> = ({ menuData }) => {
     <div className="h-full overflow-y-auto">
       {menuData.map((group) => (
         <MenuGroup
+          collapsed={collapsed}
           key={group.parent_menu.id}
           parentMenu={group.parent_menu}
           childMenus={group.child_menus}

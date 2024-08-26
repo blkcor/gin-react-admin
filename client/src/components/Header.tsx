@@ -1,11 +1,13 @@
+import { systemAtom } from '@/stores/systemAtom'
 import { userAtom } from '@/stores/userAtom'
 import { TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon, ExitFullScreenIcon } from '@radix-ui/react-icons'
 import { Avatar } from '@radix-ui/themes'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 
 const Header = () => {
   const user = useAtomValue(userAtom)
+  const [systemConfig, setSystemConfig] = useAtom(systemAtom)
 
   const [darkMode, setDarkMode] = useState(() => {
     const isDarkMode = localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -34,6 +36,12 @@ const Header = () => {
     setDarkMode(!darkMode)
   }
 
+  const toggleCollapse = () => {
+    setSystemConfig((prev) => ({ ...prev, collapsed: !prev.collapsed }))
+    //更新localStorage
+    localStorage.setItem('systemConfig', JSON.stringify({ ...systemConfig, collapsed: !systemConfig.collapsed }))
+  }
+
   function toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
@@ -47,7 +55,7 @@ const Header = () => {
   return (
     <div className="w-full flex p-[15.5px] gap-3 justify-between items-center layout-border-b bg-white dark:bg-gray-800">
       {/* 隐藏侧边栏的图标 */}
-      <TextAlignLeftIcon className="w-6 h-6 cursor-pointer" />
+      <TextAlignLeftIcon onClick={toggleCollapse} className="w-6 h-6 cursor-pointer" />
       <div className="flex-1"></div>
       {/* 功能栏 */}
       <div className="flex gap-3 items-center ">
