@@ -50,7 +50,7 @@ const MenuGroup: React.FC<MenuGroupProps> = ({ parentMenu, childMenus, isOpen, o
           <AnimatePresence>
             {!collapsed && (
               <motion.span
-                style={{ minWidth: '100px' }}
+                style={{ minWidth: '60px' }}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
