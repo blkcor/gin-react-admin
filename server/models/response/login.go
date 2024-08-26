@@ -6,6 +6,11 @@ type LoginResponse struct {
 	Token string `json:"token"`
 }
 
+// LogoutResponse 登录响应
+type LogoutResponse struct {
+	BaseResponse[any]
+}
+
 // UserInfo 用户信息
 type UserInfo struct {
 	UserId   uint32 `json:"userId"`

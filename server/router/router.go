@@ -15,7 +15,7 @@ var Router *gin.Engine
 
 func InitDocInfo() {
 	docs.SwaggerInfo.Title = "GRA文档"
-	docs.SwaggerInfo.Description = "Gin + React 管理系统的 API 文档"
+	docs.SwaggerInfo.Description = "Gin + React 后台管理系统的 API 文档"
 	docs.SwaggerInfo.Version = "0.1.0"
 	docs.SwaggerInfo.Host = "127.0.0.1:8000"
 	docs.SwaggerInfo.BasePath = "/"
@@ -50,6 +50,7 @@ func Init() {
 	Router.Use(gin.Recovery())
 	Router.GET("/captcha", api.Captcha)
 	Router.POST("/login", api.Login)
+	Router.POST("/logout", api.Logout)
 	vs1 := Router.Group("/v1")
 	vs1.Use(middleware.AuthMiddleWare())
 	vs1.Use(middleware.CasbinHandler())

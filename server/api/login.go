@@ -89,3 +89,21 @@ func Login(context *gin.Context) {
 		},
 	})
 }
+
+// Logout godoc
+//
+// @Summary      退出登录
+// @Description  退出登录接口
+// @Tags         登录相关接口
+// @Produce      json
+// @Success      200  {object}  response.LogoutResponse  "退出登录成功，返回提示信息"
+// @Router       /logout [post]
+func Logout(context *gin.Context) {
+	context.JSON(http.StatusOK, response.LogoutResponse{
+		BaseResponse: response.BaseResponse[any]{
+			Success: true,
+			Message: "退出登录成功",
+			Data:    nil,
+		},
+	})
+}

@@ -19,8 +19,18 @@ definitions:
         $ref: '#/definitions/response.UserInfo'
       message:
         type: string
+      success:
+        type: boolean
       token:
         type: string
+    type: object
+  response.LogoutResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
     type: object
   response.MenuGroup:
     properties:
@@ -42,10 +52,14 @@ definitions:
     type: object
   response.MenuListResponse:
     properties:
-      menu_groups:
+      data:
         items:
           $ref: '#/definitions/response.MenuGroup'
         type: array
+      message:
+        type: string
+      success:
+        type: boolean
     type: object
   response.UserInfo:
     properties:
@@ -129,6 +143,19 @@ paths:
             additionalProperties: true
             type: object
       summary: 登录
+      tags:
+      - 登录相关接口
+  /logout:
+    post:
+      description: 退出登录接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 退出登录成功，返回提示信息
+          schema:
+            $ref: '#/definitions/response.LogoutResponse'
+      summary: 退出登录
       tags:
       - 登录相关接口
   /v1/menu:

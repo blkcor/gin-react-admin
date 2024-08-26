@@ -105,6 +105,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/logout": {
+            "post": {
+                "description": "退出登录接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "登录相关接口"
+                ],
+                "summary": "退出登录",
+                "responses": {
+                    "200": {
+                        "description": "退出登录成功，返回提示信息",
+                        "schema": {
+                            "$ref": "#/definitions/response.LogoutResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/menu": {
             "get": {
                 "security": [
@@ -181,8 +201,23 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
+                "success": {
+                    "type": "boolean"
+                },
                 "token": {
                     "type": "string"
+                }
+            }
+        },
+        "response.LogoutResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
                 }
             }
         },
@@ -217,11 +252,17 @@ const docTemplate = `{
         "response.MenuListResponse": {
             "type": "object",
             "properties": {
-                "menu_groups": {
+                "data": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/response.MenuGroup"
                     }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
                 }
             }
         },
