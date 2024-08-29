@@ -72,6 +72,7 @@ func GetMenu(context *gin.Context) {
 					ID:   s.ID,
 					Name: s.Name,
 					Icon: s.Icon,
+					Path: s.Path,
 				}
 				menuGroup.ChildMenus = append(menuGroup.ChildMenus, sMenuItem)
 			}
