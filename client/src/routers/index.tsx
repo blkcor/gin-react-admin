@@ -43,6 +43,10 @@ export const router = createBrowserRouter([
         element: LazyLoad(About, 'about'),
       },
       {
+        path: 'sys/monitor',
+        element: <div>系统监控</div>,
+      },
+      {
         path: '*',
         element: <div>404</div>,
       },

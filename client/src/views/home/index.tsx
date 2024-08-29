@@ -82,9 +82,6 @@ const Home = () => {
               🔄 状态管理: 使用 <strong>jotai</strong> 进行简单但功能强大的状态管理，轻松实现复杂应用的数据流控制。
             </p>
             <p>
-              🌗 主题切换: <strong>next-themes</strong> 提供了直观的深色/浅色模式切换，提升用户体验。
-            </p>
-            <p>
               📝 富文本编辑: 通过 <strong>quill</strong> 轻松实现现代化的富文本编辑功能。
             </p>
             <p>
