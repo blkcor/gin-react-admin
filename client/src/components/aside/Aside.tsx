@@ -5,13 +5,13 @@ import { toast } from 'react-toastify'
 import AsideMenu from './AsideMenu'
 import { useState } from 'react'
 import { MenuGroup } from '@/apis/types'
-import { systemAtom } from '@/stores/systemAtom'
-import { useAtomValue } from 'jotai'
+
 import { motion, AnimatePresence } from 'framer-motion'
+import { useCollapse } from '@/hooks/useCollapse'
 
 const Aside = () => {
   const [menuGroup, setMenuGroup] = useState<MenuGroup[]>()
-  const systemConfig = useAtomValue(systemAtom)
+  const { collapsed } = useCollapse()
 
   const { loading, onError, onSuccess } = useRequest(api.getMenuList, {
     immediate: true,
@@ -31,7 +31,7 @@ const Aside = () => {
     <motion.aside
       className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 `}
       animate={{
-        width: systemConfig.collapsed ? '5rem' : '16rem',
+        width: collapsed ? '5rem' : '16rem',
       }}
     >
       <div className="flex flex-col">
@@ -41,14 +41,14 @@ const Aside = () => {
             <img src={logo} alt="logo" className="w-10 h-10 flex-shrink-0" />
             <AnimatePresence>
               <motion.span
-                style={{ minWidth: systemConfig.collapsed ? '0px' : '160px' }}
+                style={{ minWidth: collapsed ? '0px' : '160px' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.1, ease: 'easeInOut' }}
                 className="text-2xs font-bold text-gray-800 dark:text-white flex-auto"
               >
-                {!systemConfig.collapsed && 'Gin React Admin'}
+                {!collapsed && 'Gin React Admin'}
               </motion.span>
             </AnimatePresence>
           </motion.div>
@@ -58,7 +58,7 @@ const Aside = () => {
             <p>加载中...</p>
           </div>
         ) : menuGroup ? (
-          <AsideMenu menuData={menuGroup} collapsed={systemConfig.collapsed} />
+          <AsideMenu menuData={menuGroup} collapsed={collapsed} />
         ) : (
           <div className="flex items-center justify-center flex-1">
             <p>无法加载菜单</p>
