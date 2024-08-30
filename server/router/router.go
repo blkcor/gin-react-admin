@@ -60,7 +60,7 @@ func Init() {
 		//菜单相关接口
 		menuGroup := protected.Group("/menu")
 		{
-			menuGroup.GET("/", v1.GetMenu)
+			menuGroup.GET("/list", v1.GetMenu)
 		}
 
 		//操作日志相关接口
