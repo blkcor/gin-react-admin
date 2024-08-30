@@ -68,7 +68,7 @@ func Init() {
 		{
 			operationLogGroup.DELETE("/:id", v1.DeleteOperationLogRecord)
 			operationLogGroup.DELETE("/deleteOperationLogByIds", v1.DeleteOperationLogByIds)
-			operationLogGroup.GET("/", v1.GetOperationLogList)
+			operationLogGroup.GET("/list", v1.GetOperationLogList)
 		}
 
 		resourceMonitor := system.NewResourceMonitor()
