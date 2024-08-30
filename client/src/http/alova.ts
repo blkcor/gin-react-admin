@@ -49,7 +49,6 @@ export const alovaIns = createAlova({
             toast.error('认证失败，请重新登录', {
               position: 'top-center',
             })
-            window.dispatchEvent(new CustomEvent('unauthorized', { detail: '/login' }))
           }
         } else {
           toast.error(json.message, {

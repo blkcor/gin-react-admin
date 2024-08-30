@@ -10,21 +10,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCollapse } from '@/hooks/useCollapse'
 
 const Aside = () => {
-  const [menuGroup, setMenuGroup] = useState<MenuGroup[]>()
-  const { collapsed } = useCollapse()
-
   const { loading, onError, onSuccess } = useRequest(api.getMenuList, {
-    immediate: true,
-  })
-
-  onSuccess((event) => {
-    setMenuGroup(event.data.data)
+    force: true,
   })
 
   onError((event) => {
     toast.error('获取菜单失败: ' + event.error, {
       position: 'top-center',
     })
+  })
+
+  const [menuGroup, setMenuGroup] = useState<MenuGroup[]>()
+  const { collapsed } = useCollapse()
+
+  onSuccess((event) => {
+    setMenuGroup(event.data.data)
   })
 
   return (
