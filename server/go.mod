@@ -3,10 +3,20 @@ module github.com/blkcor/gin-react-admin
 go 1.22.3
 
 require (
+	github.com/afocus/captcha v0.0.0-20191010092841-4bd1f21c8868
+	github.com/casbin/casbin/v2 v2.98.0
+	github.com/casbin/gorm-adapter/v3 v3.26.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
+	github.com/google/uuid v1.6.0
 	github.com/gookit/slog v0.5.6
+	github.com/gorilla/websocket v1.5.3
+	github.com/rabbitmq/amqp091-go v1.10.0
 	github.com/redis/go-redis/v9 v9.6.1
+	github.com/swaggo/files v1.0.1
+	github.com/swaggo/gin-swagger v1.6.0
+	github.com/swaggo/swag v1.16.3
+	golang.org/x/crypto v0.25.0
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.11
@@ -16,11 +26,8 @@ require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
-	github.com/afocus/captcha v0.0.0-20191010092841-4bd1f21c8868 // indirect
 	github.com/bytedance/sonic v1.12.0 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
-	github.com/casbin/casbin/v2 v2.98.0 // indirect
-	github.com/casbin/gorm-adapter/v3 v3.26.0 // indirect
 	github.com/casbin/govaluate v1.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
@@ -31,6 +38,7 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/glebarez/go-sqlite v1.20.3 // indirect
 	github.com/glebarez/sqlite v1.7.0 // indirect
+	github.com/go-co-op/gocron/v2 v2.11.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.4 // indirect
@@ -43,8 +51,6 @@ require (
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/gookit/goutil v0.6.15 // indirect
 	github.com/gookit/gsr v0.1.0 // indirect
@@ -54,10 +60,10 @@ require (
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jonboulle/clockwork v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -66,16 +72,15 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230126093431-47fa9a501578 // indirect
-	github.com/rogpeppe/go-internal v1.12.0 // indirect
-	github.com/swaggo/files v1.0.1 // indirect
-	github.com/swaggo/gin-swagger v1.6.0 // indirect
-	github.com/swaggo/swag v1.16.3 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
+	github.com/tklauser/go-sysconf v0.3.14 // indirect
+	github.com/tklauser/numcpus v0.8.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
 	golang.org/x/arch v0.9.0 // indirect
-	golang.org/x/crypto v0.25.0 // indirect
 	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8 // indirect
 	golang.org/x/image v0.19.0 // indirect
 	golang.org/x/net v0.27.0 // indirect

@@ -4,6 +4,7 @@ import (
 	"github.com/afocus/captcha"
 	"github.com/blkcor/gin-react-admin/core/cache"
 	"github.com/blkcor/gin-react-admin/core/logger"
+	"github.com/blkcor/gin-react-admin/models/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,8 +15,10 @@ func GenerateCaptchaAndImg(context *gin.Context) (*captcha.Image, string) {
 	err := c.SetFont("fonts/comic.ttf")
 	if err != nil {
 		logger.Error("Captcha font error: ", err)
-		context.JSON(500, gin.H{
-			"message": "Captcha font error",
+		context.JSON(500, response.BaseResponse[any]{
+			Success: false,
+			Message: "Captcha font error",
+			Data:    nil,
 		})
 	}
 	return c.Create(4, captcha.NUM)

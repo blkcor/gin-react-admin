@@ -19,10 +19,12 @@ func Init(done chan bool) {
 	app := conf.Section("APP")
 	database := conf.Section("POSTGRESQL")
 	redis := conf.Section("REDIS")
+	mq := conf.Section("RABBITMQ")
 
 	section.InitAPP(app)
 	section.InitDataBase(database)
 	section.InitRedis(redis)
+	section.InitMQ(mq)
 
 	logger.Info("配置信息初始化完毕!")
 	done <- true

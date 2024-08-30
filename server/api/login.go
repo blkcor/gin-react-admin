@@ -27,33 +27,39 @@ import (
 func Login(context *gin.Context) {
 	loginRequest := request.LoginRequest{}
 	if err := context.ShouldBindJSON(&loginRequest); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{
-			"message": "参数错误",
+		context.JSON(http.StatusBadRequest, response.BaseResponse[any]{
+			Success: false,
+			Message: "参数错误",
+			Data:    nil,
 		})
 		return
 	}
 	// 校验用户的合法性
 	user, err := service.GetUserByUsername(loginRequest.Username)
 	if err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"message": "用户不存在",
+		context.JSON(http.StatusUnauthorized, response.BaseResponse[any]{
+			Success: false,
+			Message: "用户不存在",
+			Data:    nil,
 		})
 		return
 	}
 	// 校验密码的合法性
 	valid := user.CheckPassword(loginRequest.Password)
 	if !valid {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"message": "密码错误",
+		context.JSON(http.StatusUnauthorized, response.BaseResponse[any]{
+			Success: false,
+			Message: "密码错误",
+			Data:    nil,
 		})
 		return
 	}
 	// 校验验证码，对比 Redis 和用户输入的验证码是否一致
 	ok := captcha.VerifyCaptcha(context, loginRequest.Captcha)
 	if !ok {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"success": false,
-			"message": "验证码错误",
+		context.JSON(http.StatusUnauthorized, response.BaseResponse[any]{
+			Success: false,
+			Message: "验证码错误",
 		})
 		return
 	}
@@ -61,15 +67,19 @@ func Login(context *gin.Context) {
 	// 获取用户的角色信息
 	role, err := service.GetUserRoleByUserId(user.ID)
 	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{
-			"message": "获取用户角色信息失败",
+		context.JSON(http.StatusInternalServerError, response.BaseResponse[any]{
+			Success: false,
+			Message: "获取用户角色信息失败",
+			Data:    nil,
 		})
 		return
 	}
 	token, err := jwt.GenToken(user.ID, user.Username, user.Email, role.RoleCode, role.ID, section.AppConfig.AccessKey)
 	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{
-			"message": "生成 token 失败",
+		context.JSON(http.StatusInternalServerError, response.BaseResponse[any]{
+			Success: false,
+			Message: "生成token失败",
+			Data:    nil,
 		})
 		return
 	}

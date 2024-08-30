@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/blkcor/gin-react-admin/models/response"
 	"github.com/blkcor/gin-react-admin/system"
 	"github.com/blkcor/gin-react-admin/utils/jwt"
 	"github.com/gin-gonic/gin"
@@ -13,11 +14,13 @@ func CasbinHandler() gin.HandlerFunc {
 		obj := context.Request.URL.Path
 		//获取请求方法
 		act := context.Request.Method
-		//角色应该从token解析出来，此处为了节约时间，写死了值
+		//从token中解析处角色
 		claim, err := jwt.GetClaimFromContext(context)
 		if err != nil {
-			context.JSON(http.StatusForbidden, gin.H{
-				"message": "无权限",
+			context.JSON(http.StatusForbidden, response.BaseResponse[any]{
+				Success: false,
+				Message: "无权限",
+				Data:    nil,
 			})
 			context.Abort()
 			return
@@ -31,8 +34,10 @@ func CasbinHandler() gin.HandlerFunc {
 		if success {
 			context.Next()
 		} else {
-			context.JSON(http.StatusForbidden, gin.H{
-				"message": "无权限",
+			context.JSON(http.StatusForbidden, response.BaseResponse[any]{
+				Success: false,
+				Message: "无权限",
+				Data:    nil,
 			})
 			context.Abort()
 			return

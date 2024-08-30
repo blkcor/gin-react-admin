@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/blkcor/gin-react-admin/core/cache"
 	"github.com/blkcor/gin-react-admin/core/logger"
+	"github.com/blkcor/gin-react-admin/models/response"
 	"github.com/blkcor/gin-react-admin/utils/captcha"
 	"github.com/gin-gonic/gin"
 	"image/png"
@@ -24,8 +25,10 @@ func Captcha(context *gin.Context) {
 	// store the captcha code in the redis
 	clientIP, ok := context.Get("ClientIP")
 	if !ok {
-		context.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Get client ip failed",
+		context.JSON(http.StatusInternalServerError, response.BaseResponse[any]{
+			Success: false,
+			Message: "Get client ip failed",
+			Data:    nil,
 		})
 	}
 	//设置过期时间为一分钟

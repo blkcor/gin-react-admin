@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/blkcor/gin-react-admin/api"
 	v1 "github.com/blkcor/gin-react-admin/api/v1"
+	"github.com/blkcor/gin-react-admin/api/ws/system"
 	"github.com/blkcor/gin-react-admin/core/logger"
 	"github.com/blkcor/gin-react-admin/docs"
 	"github.com/blkcor/gin-react-admin/middleware"
@@ -57,7 +58,10 @@ func Init() {
 	{
 		//受保护的路由
 		vs1.GET("/menu", v1.GetMenu)
+		resourceMonitor := system.NewResourceMonitor()
+		vs1.GET("/ws/server-monitor", resourceMonitor.ServerResourceMonitor)
 	}
+
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	logger.Info("路由初始化成功!")
 }

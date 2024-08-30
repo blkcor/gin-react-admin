@@ -25,9 +25,10 @@ func GetMenu(context *gin.Context) {
 	//首先拿到当前用户角色对应的所有menu id
 	claim, err := jwt.GetClaimFromContext(context)
 	if err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"code":    401,
-			"message": "用户认证失败，请重新登录",
+		context.JSON(http.StatusUnauthorized, response.BaseResponse[any]{
+			Success: false,
+			Message: "用户认证失败，请重新登录",
+			Data:    nil,
 		})
 		return
 	}
