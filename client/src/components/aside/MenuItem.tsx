@@ -1,19 +1,21 @@
 import React from 'react'
 import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 interface MenuItemProps {
   item: {
     id: number
     name: string
     icon: string
+    path: string
   }
   collapse?: boolean
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, collapse }) => {
   return (
-    <div className={` ${!collapse ? 'pl-10' : 'px-4'} flex items-center py-4  gap-3 rounded cursor-pointer text-black dark:text-white hover:bg-[#ECF5FF] dark:hover:bg-[#343435]`}>
+    <Link to={item.path} className={` ${!collapse ? 'pl-10' : 'px-4'} flex items-center py-4  gap-3 rounded cursor-pointer text-black dark:text-white hover:bg-[#ECF5FF] dark:hover:bg-[#343435]`}>
       <Icon icon={'carbon:' + item.icon} className="text-xl" />
       <AnimatePresence>
         <motion.span
@@ -27,7 +29,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, collapse }) => {
           {item.name}
         </motion.span>
       </AnimatePresence>
-    </div>
+    </Link>
   )
 }
 

@@ -14,6 +14,10 @@ const Aside = () => {
     force: true,
   })
 
+  onSuccess((event) => {
+    setMenuGroup(event.data.data)
+  })
+
   onError((event) => {
     toast.error('获取菜单失败: ' + event.error, {
       position: 'top-center',
@@ -22,10 +26,6 @@ const Aside = () => {
 
   const [menuGroup, setMenuGroup] = useState<MenuGroup[]>()
   const { collapsed } = useCollapse()
-
-  onSuccess((event) => {
-    setMenuGroup(event.data.data)
-  })
 
   return (
     <motion.aside

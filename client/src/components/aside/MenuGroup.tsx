@@ -16,6 +16,7 @@ interface MenuGroupProps {
     id: number
     name: string
     icon: string
+    path: string
   }>
   isOpen: boolean
   onToggle: () => void
