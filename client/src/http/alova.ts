@@ -25,10 +25,11 @@ function getToken() {
 const computedToken = getToken()
 
 export const alovaIns = createAlova({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: '/api',
   timeout: 10000,
   statesHook: ReactHook,
   requestAdapter: fetchAdapter(),
+  cacheLogger: import.meta.env.MODE === 'development',
   beforeRequest({ config }) {
     const token = localStorage.getItem('token')
     if (token) {
