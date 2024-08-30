@@ -69,3 +69,33 @@ func DeleteOperationLogByIds(context *gin.Context) {
 		Data:    nil,
 	})
 }
+
+func GetOperationLogList(context *gin.Context) {
+	//获取参数
+	var req request.GetOperationLogListRequest
+	if err := context.ShouldBindJSON(&req); err != nil {
+		context.JSON(http.StatusBadRequest, response.BaseResponse[any]{
+			Success: false,
+			Message: "参数错误",
+			Data:    nil,
+		})
+		return
+	}
+	// 默认参数
+	req.Setup()
+	resp, err := service.GetOperationLogList(req)
+	if err != nil {
+		logger.Error("获取操作日志列表失败: ", err)
+		context.JSON(500, response.BaseResponse[any]{
+			Success: false,
+			Message: "获取操作日志列表失败",
+			Data:    nil,
+		})
+		return
+	}
+	context.JSON(200, response.BaseResponse[response.GetOperationLogListResponse]{
+		Success: true,
+		Message: "获取操作日志列表成功",
+		Data:    resp,
+	})
+}
