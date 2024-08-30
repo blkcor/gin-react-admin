@@ -25,6 +25,8 @@ func CasbinHandler() gin.HandlerFunc {
 			context.Abort()
 			return
 		}
+		//将username存入上下文，方便操作日志记录
+		context.Set("operator", claim.Username)
 		sub := claim.RoleCode
 		//引入casbin
 		e := system.CasbinServiceApp.Casbin()

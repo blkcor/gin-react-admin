@@ -45,21 +45,33 @@ func InitDocInfo() {
 func Init() {
 	//InitDocInfo()
 	Router = gin.New()
+	Router.Use(middleware.ClientIP())
 	Router.Use(middleware.CorsMiddleware())
 	Router.Use(middleware.RequestLogMiddleware())
-	Router.Use(middleware.ClientIP())
 	Router.Use(gin.Recovery())
 	Router.GET("/captcha", api.Captcha)
 	Router.POST("/login", api.Login)
 	Router.POST("/logout", api.Logout)
-	vs1 := Router.Group("/v1")
-	vs1.Use(middleware.AuthMiddleWare())
-	vs1.Use(middleware.CasbinHandler())
+	protected := Router.Group("/v1")
+	protected.Use(middleware.AuthMiddleWare())
+	protected.Use(middleware.CasbinHandler())
+	protected.Use(middleware.OperationLog())
 	{
-		//受保护的路由
-		vs1.GET("/menu", v1.GetMenu)
+		//菜单相关接口
+		menuGroup := protected.Group("/menu")
+		{
+			menuGroup.GET("/", v1.GetMenu)
+		}
+
+		//操作日志相关接口
+		operationLogGroup := protected.Group("/operationLog")
+		{
+			operationLogGroup.DELETE("/:id", v1.DeleteOperationLogRecord)
+			operationLogGroup.DELETE("/deleteOperationLogByIds", v1.DeleteOperationLogByIds)
+		}
+
 		resourceMonitor := system.NewResourceMonitor()
-		vs1.GET("/ws/server-monitor", resourceMonitor.ServerResourceMonitor)
+		protected.GET("/ws/server-monitor", resourceMonitor.ServerResourceMonitor)
 	}
 
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
