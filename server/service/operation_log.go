@@ -44,7 +44,7 @@ func GetOperationLogList(req request.GetOperationLogListRequest) (response.GetOp
 	}
 	var operationLogs []model.OperationLog
 	var total int64
-	exec := db.DB.Model(&model.OperationLog{})
+	exec := db.DB.Model(&model.OperationLog{}).Where("is_deleted = ?", 0)
 	if req.Path != "" {
 		exec = exec.Where("request_path like ?", "%"+req.Path+"%")
 	}
