@@ -51,11 +51,11 @@ func Init() {
 	Router.Use(gin.Recovery())
 	Router.GET("/captcha", api.Captcha)
 	Router.POST("/login", api.Login)
-	Router.POST("/logout", api.Logout)
 	protected := Router.Group("/v1")
 	protected.Use(middleware.AuthMiddleWare())
 	protected.Use(middleware.CasbinHandler())
 	protected.Use(middleware.OperationLog())
+	protected.POST("/logout", api.Logout)
 	{
 		//菜单相关接口
 		menuGroup := protected.Group("/menu")
