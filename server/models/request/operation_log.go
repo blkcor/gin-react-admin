@@ -9,7 +9,7 @@ type DeleteOperationLogByIdsRequest struct {
 
 // GetOperationLogListRequest 获取操作日志列表请求
 type GetOperationLogListRequest struct {
-	pagination.Paginator
+	pagination.Pagination
 	Method string `json:"method"`
 	Path   string `json:"path"`
 	Ip     string `json:"ip"`

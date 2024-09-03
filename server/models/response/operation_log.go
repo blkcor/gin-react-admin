@@ -8,5 +8,5 @@ import (
 // GetOperationLogListResponse 获取操作日志列表响应
 type GetOperationLogListResponse struct {
 	Data []model.OperationLog `json:"data"`
-	pagination.Paginator
+	pagination.Pagination
 }

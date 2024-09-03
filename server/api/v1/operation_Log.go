@@ -82,7 +82,6 @@ func GetOperationLogList(context *gin.Context) {
 		return
 	}
 	// 默认参数
-	req.Setup()
 	resp, err := service.GetOperationLogList(req)
 	if err != nil {
 		logger.Error("获取操作日志列表失败: ", err)

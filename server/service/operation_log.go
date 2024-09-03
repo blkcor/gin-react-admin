@@ -35,16 +35,14 @@ func DeleteOperationLogByIds(ids []uint32) error {
 
 // GetOperationLogList 获取操作日志列表
 func GetOperationLogList(req request.GetOperationLogListRequest) (response.GetOperationLogListResponse, error) {
-	resp := response.GetOperationLogListResponse{
-		Paginator: pagination.Paginator{
-			Size: req.Size,
-			Page: req.Page,
-		},
-		Data: nil,
-	}
+	resp := response.GetOperationLogListResponse{}
+	// 分页器
+	p := pagination.Pagination{}
+	p.Size = req.Size
+	p.Page = req.Page
+
 	var operationLogs []model.OperationLog
-	var total int64
-	exec := db.DB.Model(&model.OperationLog{}).Where("is_deleted = ?", 0)
+	exec := db.DB.Where("is_deleted = ?", 0)
 	if req.Path != "" {
 		exec = exec.Where("request_path like ?", "%"+req.Path+"%")
 	}
@@ -54,12 +52,8 @@ func GetOperationLogList(req request.GetOperationLogListRequest) (response.GetOp
 	if req.Ip != "" {
 		exec = exec.Where("request_ip = ?", req.Ip)
 	}
-	err := exec.Count(&total).Error
-	if err != nil {
-		return resp, err
-	}
-	err = exec.Limit(req.Size).Offset((req.Page - 1) * req.Size).Find(&operationLogs).Error
+	db.DB.Scopes(p.Paginate(operationLogs, db.DB)).Find(&operationLogs)
 	resp.Data = operationLogs
-	resp.Total = total
-	return resp, err
+	resp.Pagination = p
+	return resp, nil
 }
