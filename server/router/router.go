@@ -71,6 +71,12 @@ func Init() {
 			operationLogGroup.GET("/list", v1.GetOperationLogList)
 		}
 
+		//在线用户面板相关接口
+		onlineUserGroup := protected.Group("/onlineUser")
+		{
+			onlineUserGroup.GET("/list", v1.GetOnlineUser)
+		}
+
 		resourceMonitor := system.NewResourceMonitor()
 		protected.GET("/ws/server-monitor", resourceMonitor.ServerResourceMonitor)
 	}

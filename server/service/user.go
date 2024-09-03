@@ -29,3 +29,13 @@ func GetUserRoleByUserId(userId uint32) (model.Role, error) {
 	}
 	return role, nil
 }
+
+// GetUserByIds 根据用户id批量查找用户
+func GetUserByIds(ids []uint32) ([]model.User, error) {
+	var users []model.User
+	result := db.DB.Where("id in (?)", ids).Find(&users)
+	if result.Error != nil {
+		return users, result.Error
+	}
+	return users, nil
+}

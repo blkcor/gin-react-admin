@@ -2,11 +2,13 @@ package api
 
 import (
 	"github.com/blkcor/gin-react-admin/config/section"
+	"github.com/blkcor/gin-react-admin/core/cache"
 	"github.com/blkcor/gin-react-admin/models/request"
 	"github.com/blkcor/gin-react-admin/models/response"
 	"github.com/blkcor/gin-react-admin/service"
 	"github.com/blkcor/gin-react-admin/utils/captcha"
 	"github.com/blkcor/gin-react-admin/utils/jwt"
+	"github.com/blkcor/gin-react-admin/utils/key"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -83,6 +85,7 @@ func Login(context *gin.Context) {
 		})
 		return
 	}
+	cache.RDB.SAdd(context, key.OnlineUserSetKey, key.GenerateOnlineUserKey(user.ID))
 	context.JSON(http.StatusOK, response.LoginResponse{
 		Token: token,
 		BaseResponse: response.BaseResponse[response.UserInfo]{
@@ -109,6 +112,18 @@ func Login(context *gin.Context) {
 // @Success      200  {object}  response.LogoutResponse  "退出登录成功，返回提示信息"
 // @Router       /logout [post]
 func Logout(context *gin.Context) {
+	// 从上下文中获取用户 ID并删除在线用户信息
+	userId, _ := context.Get("userId")
+	if exists, err := cache.RDB.SIsMember(context, key.OnlineUserSetKey, key.GenerateOnlineUserKey(userId.(uint32))).Result(); err != nil {
+		context.JSON(http.StatusInternalServerError, response.BaseResponse[any]{
+			Success: false,
+			Message: "获取在线用户信息失败",
+			Data:    nil,
+		})
+		return
+	} else if exists {
+		cache.RDB.SRem(context, key.OnlineUserSetKey, key.GenerateOnlineUserKey(userId.(uint32)))
+	}
 	context.JSON(http.StatusOK, response.LogoutResponse{
 		BaseResponse: response.BaseResponse[any]{
 			Success: true,
