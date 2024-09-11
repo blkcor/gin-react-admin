@@ -1,5 +1,5 @@
 import { userAtom } from '@/stores/userAtom'
-import { ExitIcon, TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon, ExitFullScreenIcon } from '@radix-ui/react-icons'
+import { ExitIcon, PersonIcon, TextAlignLeftIcon, MoonIcon, SunIcon, GitHubLogoIcon, EnterFullScreenIcon, ExitFullScreenIcon } from '@radix-ui/react-icons'
 import { Avatar } from '@radix-ui/themes'
 import { useAtomValue } from 'jotai'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
@@ -40,6 +40,11 @@ const Header = () => {
                 className="mt-1 py-2 w-36 rounded-lg bg-white shadow ring-1 ring-slate-900/5 text-sm leading-6 font-semibold text-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:highlight-white/5"
                 sideOffset={3}
               >
+                <DropdownMenu.Item className="cursor-pointer flex items-center justify-between px-3 py-1">
+                  <span>Profile</span>
+                  <PersonIcon />
+                </DropdownMenu.Item>
+
                 <DropdownMenu.Item className="cursor-pointer flex items-center justify-between px-3 py-1">
                   <span>Logout</span>
                   <ExitIcon />

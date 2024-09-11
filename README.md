@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/blkcor/gin-react-admin">
-    <img width="38%" alt="go-admin" src="./images/logo.png">
+    <img alt="go-admin" src="./images/logo.png">
   </a>
 </p>
 
