@@ -7,7 +7,7 @@ import Permission from '@/components/Permission'
 const Home = lazy(() => import('@/views/home/index'))
 const About = lazy(() => import('@/views/about/index'))
 const Login = lazy(() => import('@/views/login/index'))
-
+const SysComponentEditor = lazy(() => import('@/views/sys/component/editor/index'))
 /**
  * @param Component 懒加载的组件
  * @param code 用于判断权限的字段
@@ -43,8 +43,8 @@ export const router = createBrowserRouter([
         element: LazyLoad(About, 'about'),
       },
       {
-        path: 'sys/monitor/panel',
-        element: <div>系统监控</div>,
+        path: 'sys/component/editor',
+        element: LazyLoad(SysComponentEditor, 'sys.component.editor'),
       },
       {
         path: '*',

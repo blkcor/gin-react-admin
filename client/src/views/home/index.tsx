@@ -18,7 +18,6 @@ const Home = () => {
         userInfo,
       })
     }
-
     // 从localStorage进行初始化systemAtom
     if (!localStorage.getItem('systemConfig')) {
       localStorage.setItem('systemConfig', JSON.stringify(systemConfig))
