@@ -8,6 +8,7 @@ import { MenuGroup } from '@/apis/types'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCollapse } from '@/hooks/useCollapse'
+import { useNavigate } from 'react-router-dom'
 
 const Aside = () => {
   const { loading, onError, onSuccess } = useRequest(api.getMenuList, {
@@ -27,6 +28,11 @@ const Aside = () => {
   const [menuGroup, setMenuGroup] = useState<MenuGroup[]>()
   const { collapsed } = useCollapse()
 
+  const navigate = useNavigate()
+  const handleGoHome = () => {
+    navigate('/')
+  }
+
   return (
     <motion.aside
       className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 `}
@@ -38,7 +44,7 @@ const Aside = () => {
         <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
           {/* logo区域 */}
           <motion.div layout className="flex items-center p-2 gap-2 ">
-            <img src={logo} alt="logo" className="w-10 h-10 flex-shrink-0" />
+            <img src={logo} alt="logo" className="w-10 h-10 flex-shrink-0 cursor-pointer" onClick={handleGoHome} />
             <AnimatePresence>
               <motion.span
                 style={{ minWidth: collapsed ? '0px' : '160px' }}

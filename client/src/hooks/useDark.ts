@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react"
+import { darkModeAtom, toggleDarkModeAtom } from "@/stores/systemAtom";
+import { useAtom, useSetAtom } from "jotai";
+
 
 
 export const useDark = () => {
-  const [darkMode, setDarkMode] = useState(() => {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    return isDarkMode
-  })
+  const [darkMode] = useAtom(darkModeAtom);
+  const toggleDarkMode = useSetAtom(toggleDarkModeAtom);
 
-  useEffect(() => {
-    // Apply dark mode class to body
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-    // Save preference tolocalStorage
-    localStorage.setItem('darkMode', darkMode.toString())
-  }, [darkMode])
-
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
-
-
-  return { darkMode, toggleDarkMode }
+  return { darkMode, toggleDarkMode };
 }
