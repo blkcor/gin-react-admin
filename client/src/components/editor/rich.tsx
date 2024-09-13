@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { toast } from 'react-toastify'
 
-const Editor = () => {
+const RichEditor = () => {
   const { darkMode } = useDark()
   const quillRef = useRef<ReactQuill | null>(null)
   const bgColors = ['purple', '#785412', '#452632', '#856325', '#963254', '#254563', !darkMode ? '#fff' : '#000']
@@ -53,10 +53,14 @@ const Editor = () => {
     <>
       <div>
         {/* 强制组件重新渲染 */}
-        <ReactQuill ref={quillRef} key={darkMode ? 'dark' : 'light'} theme="snow" modules={modules} formats={formats} value={code} onChange={handleProcedureContentChange} />
+        <ReactQuill className="h-[40vh]" ref={quillRef} key={darkMode ? 'dark' : 'light'} theme="snow" modules={modules} formats={formats} value={code} onChange={handleProcedureContentChange} />
 
         {/* 添加保存按钮 */}
-        <button onClick={handleSave} className="mt-3 px-4 py-2 bg-blue-500 text-white dark:text-black rounded-md hover:bg-blue-600">
+        <button
+          onClick={handleSave}
+          className="mt-20
+         px-4 py-2 bg-blue-500 text-white dark:text-black rounded-md hover:bg-blue-600"
+        >
           点击保存内容
         </button>
       </div>
@@ -64,4 +68,4 @@ const Editor = () => {
   )
 }
 
-export default Editor
+export default RichEditor

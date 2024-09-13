@@ -1,9 +1,9 @@
-import Editor from '@/components/Editor'
+import RichEditor from '@/components/editor/rich'
 
 const EditorPage = () => {
   return (
     <div>
-      <Editor />
+      <RichEditor />
     </div>
   )
 }
