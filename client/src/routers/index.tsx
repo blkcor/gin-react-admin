@@ -8,7 +8,9 @@ const Home = lazy(() => import('@/views/home/index'))
 const About = lazy(() => import('@/views/about/index'))
 const Login = lazy(() => import('@/views/login/index'))
 const SysComponentEditor = lazy(() => import('@/views/sys/component/editor/index'))
-const SysConponentMarkdown = lazy(() => import('@/views/sys/component/markdown/index'))
+const SysComponentMarkdown = lazy(() => import('@/views/sys/component/markdown/index'))
+const SysComponentIcon = lazy(() => import('@/views/sys/component/icon/index'))
+
 /**
  * @param Component 懒加载的组件
  * @param code 用于判断权限的字段
@@ -49,7 +51,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'sys/component/markdown',
-        element: LazyLoad(SysConponentMarkdown, 'sys.component.markdown'),
+        element: LazyLoad(SysComponentMarkdown, 'sys.component.markdown'),
+      },
+      {
+        path: 'sys/component/icon',
+        element: LazyLoad(SysComponentIcon, 'sys.component.icon'),
       },
       {
         path: '*',

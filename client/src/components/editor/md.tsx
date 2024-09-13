@@ -20,7 +20,7 @@ type MarkdownEditorProps = {
 
 const MarkdownEditor: FC<MarkdownEditorProps> = ({ mode }) => {
   const [content, setContent] = useState('')
-  const { copy, copied } = useClipboard()
+  const { copy } = useClipboard()
   const handleInputMarkdown = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value)
   }
