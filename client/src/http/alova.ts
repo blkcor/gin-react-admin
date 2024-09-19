@@ -23,7 +23,6 @@ function getToken() {
 }
 
 const computedToken = getToken()
-
 export const alovaIns = createAlova({
   baseURL: '/api',
   timeout: 10000,
@@ -56,6 +55,7 @@ export const alovaIns = createAlova({
             position: 'top-center',
           })
         }
+        window.dispatchEvent(new Event('unauthorized'))
       }
       return json
     }

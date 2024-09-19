@@ -1,14 +1,29 @@
-import { useEffect } from 'react'
-import { Icon, loadIcons, loadIcon, IconifyIcon } from '@iconify/react'
+import { useEffect, useState } from 'react'
+import { Icon, loadIcon, IconifyIcon } from '@iconify/react'
 import icons from '@/assets/icons/mdi.json'
 import { useClipboard } from '@/hooks/useClipBorad'
 import { toast } from 'react-toastify'
+import { loadIconAsync } from '@/utils/icon'
 
 const IconView = () => {
   const collection = 'mdi'
   const { copy } = useClipboard()
+  const [displayedIcons, setDisplayedIcons] = useState<string[]>([]) // 当前显示的图标
+  const [remainingIcons, setRemainingIcons] = useState<string[]>([]) // 剩余图标
+  const [allIconsLoaded, setAllIconsLoaded] = useState(false) // 是否加载了全部图标
+  const INITIAL_LOAD_COUNT = 1 // 初始加载的图标数量
+
   useEffect(() => {
-    loadIcons(icons)
+    // 初始化时只加载前 N 个图标
+    setDisplayedIcons(icons.slice(0, INITIAL_LOAD_COUNT))
+    setRemainingIcons(icons.slice(INITIAL_LOAD_COUNT)) // 存储剩余图标
+  }, [])
+
+  useEffect(() => {
+    async function loadIcons() {
+      await loadIconAsync(icons.slice(INITIAL_LOAD_COUNT))
+    }
+    loadIcons()
   }, [])
 
   // 将IconifyIcon对象转换为svg字符串
@@ -32,11 +47,18 @@ const IconView = () => {
       })
   }
 
+  const loadAllIcons = () => {
+    // 加载剩余图标并将其显示
+    setDisplayedIcons((prevIcons) => [...prevIcons, ...remainingIcons])
+    setRemainingIcons([]) // 清空剩余图标
+    setAllIconsLoaded(true) // 设置标志为已加载全部
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-center">Icon Gallery</h1>
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
-        {icons.map((icon, index) => (
+        {displayedIcons.map((icon, index) => (
           <div
             onClick={() => handleCopyIcon(icon)}
             key={index}
@@ -47,6 +69,14 @@ const IconView = () => {
           </div>
         ))}
       </div>
+      {/* 如果还没有加载全部图标，显示加载按钮 */}
+      {!allIconsLoaded && (
+        <div className="text-center mt-6">
+          <button onClick={loadAllIcons} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+            加载全部图标
+          </button>
+        </div>
+      )}
     </div>
   )
 }

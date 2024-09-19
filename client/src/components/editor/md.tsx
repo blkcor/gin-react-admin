@@ -19,7 +19,8 @@ type MarkdownEditorProps = {
 }
 
 const MarkdownEditor: FC<MarkdownEditorProps> = ({ mode }) => {
-  const [content, setContent] = useState('')
+  const defaultContent = `# Markdown Editor`
+  const [content, setContent] = useState(defaultContent)
   const { copy } = useClipboard()
   const handleInputMarkdown = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value)

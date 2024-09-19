@@ -7,11 +7,14 @@ import { userAtom } from '@/stores/userAtom'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Root() {
   const [user, setUser] = useAtom(userAtom)
   const [systemConfig, setSystemConfig] = useAtom(systemAtom)
   const { darkMode } = useDark()
+  const navigate = useNavigate()
+
   useEffect(() => {
     // 从localStorage进行初始化userAtom
     if (!user.token || !user.userInfo.userId) {
@@ -37,6 +40,17 @@ export default function Root() {
     }
     // Save preference tolocalStorage
     localStorage.setItem('darkMode', darkMode.toString())
+
+    // 事件监听
+    const handleUnauthorized = () => {
+      navigate('/login')
+    }
+
+    window.addEventListener('unauthorized', handleUnauthorized)
+
+    return () => {
+      window.removeEventListener('unauthorized', handleUnauthorized)
+    }
   }, [])
 
   return (
