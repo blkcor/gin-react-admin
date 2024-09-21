@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Icon, loadIcon, IconifyIcon } from '@iconify/react'
+import { loadIcon, IconifyIcon } from '@iconify/react'
 import icons from '@/assets/icons/mdi.json'
 import { useClipboard } from '@/hooks/useClipBorad'
 import { toast } from 'react-toastify'
 import { loadIconAsync } from '@/utils/icon'
+import GraIcon from '@/components/icon/GraIcon'
+import * as Switch from '@radix-ui/react-switch'
+import './icon.css'
 
 const IconView = () => {
   const collection = 'mdi'
@@ -11,7 +14,8 @@ const IconView = () => {
   const [displayedIcons, setDisplayedIcons] = useState<string[]>([]) // 当前显示的图标
   const [remainingIcons, setRemainingIcons] = useState<string[]>([]) // 剩余图标
   const [allIconsLoaded, setAllIconsLoaded] = useState(false) // 是否加载了全部图标
-  const INITIAL_LOAD_COUNT = 1 // 初始加载的图标数量
+  const INITIAL_LOAD_COUNT = 24 // 初始加载的图标数量
+  const [componentOrSvg, setComponentOrSvg] = useState<boolean>(true)
 
   useEffect(() => {
     // 初始化时只加载前 N 个图标
@@ -37,8 +41,13 @@ const IconView = () => {
   const handleCopyIcon = (icon: string) => {
     loadIcon(collection + ':' + icon)
       .then((svg) => {
-        copy(svgObjToString(svg))
-        toast.success('已复制svg', {
+        let content = svgObjToString(svg)
+        if (componentOrSvg) {
+          content = `<GraIcon name="${icon}" />`
+        }
+        copy(content)
+
+        toast.success(componentOrSvg ? '已复制组件图标' : '已复制svg图标', {
           autoClose: 800,
         })
       })
@@ -56,7 +65,14 @@ const IconView = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Icon Gallery</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Icon展馆</h1>
+      <div className="flex gap-2 mb-4">
+        <span>复制SVG</span>
+        <Switch.Root className="SwitchRoot" checked={componentOrSvg} onCheckedChange={() => setComponentOrSvg((prev) => !prev)}>
+          <Switch.Thumb className="SwitchThumb" />
+        </Switch.Root>
+        <span>复制组件</span>
+      </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
         {displayedIcons.map((icon, index) => (
           <div
@@ -64,7 +80,7 @@ const IconView = () => {
             key={index}
             className="flex flex-col items-center justify-center p-2 border rounded hover:shadow-md transition-shadow cursor-pointer hover:bg-gray-400/30"
           >
-            <Icon icon={`${collection}:${icon}`} className="text-3xl mb-2" />
+            <GraIcon name={icon} />
             <span className="text-xs text-center break-all">{icon}</span>
           </div>
         ))}

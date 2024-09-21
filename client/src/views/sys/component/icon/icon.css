@@ -1,0 +1,37 @@
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.SwitchRoot {
+  all: unset;
+  width: 42px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.SwitchRoot[aria-checked='true'] {
+  background-color: #4ade80;
+}
+
+.SwitchThumb {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 9999px;
+  transition: transform 0.2s;
+  transform: translateX(2px);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.SwitchRoot[aria-checked='true'] .SwitchThumb {
+  transform: translateX(19px);
+}
