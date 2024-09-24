@@ -52,7 +52,7 @@ func GetOperationLogList(req request.GetOperationLogListRequest) (response.GetOp
 	if req.Ip != "" {
 		exec = exec.Where("request_ip = ?", req.Ip)
 	}
-	db.DB.Scopes(p.Paginate(operationLogs, db.DB)).Find(&operationLogs)
+	exec.Scopes(p.Paginate(operationLogs, db.DB)).Find(&operationLogs)
 	resp.Data = operationLogs
 	resp.Pagination = p
 	return resp, nil
