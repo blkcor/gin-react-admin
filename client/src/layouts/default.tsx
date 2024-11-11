@@ -54,7 +54,7 @@ export default function Root() {
   }, [])
 
   return (
-    <div className="flex min-h-screen transition-all duration-500 w-full ">
+    <div className="flex min-h-screen transition-all duration-4 00 w-full bg-white text-black dark:bg-black dark:text-white ">
       <Aside />
       <div className="flex flex-col flex-grow">
         <Header />

@@ -52,7 +52,7 @@ const Aside = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.1, ease: 'easeInOut' }}
-                className="text-2xs font-bold text-gray-800 dark:text-white flex-auto"
+                className="text-2xs font-bold  flex-auto"
               >
                 {!collapsed && 'Gin React Admin'}
               </motion.span>

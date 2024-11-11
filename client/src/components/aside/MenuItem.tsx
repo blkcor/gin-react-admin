@@ -15,7 +15,7 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, collapse }) => {
   return (
-    <Link to={item.path} className={` ${!collapse ? 'pl-10' : 'px-4'} flex items-center py-4  gap-3 rounded cursor-pointer text-black dark:text-white hover:bg-[#ECF5FF] dark:hover:bg-[#343435]`}>
+    <Link to={item.path} className={` ${!collapse ? 'pl-10' : 'px-4'} flex items-center py-4  gap-3 rounded cursor-pointer hover:bg-[#ECF5FF] dark:hover:bg-[#343435]`}>
       <Icon icon={'carbon:' + item.icon} className="text-xl" />
       <AnimatePresence>
         <motion.span

@@ -1,15 +1,20 @@
 import logoTransparent from '@/assets/images/logo_transparent.png'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { PersonIcon, EyeOpenIcon, EyeClosedIcon, GearIcon, LockClosedIcon } from '@radix-ui/react-icons'
+import PersonIcon from '@mui/icons-material/Person'
+import LockIcon from '@mui/icons-material/Lock'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useEffect, useRef, useState } from 'react'
 import { useRequest } from 'alova/client'
-import apis from '@/apis/apis'
 import { Bounce, toast } from 'react-toastify'
 import { useForm, Controller } from 'react-hook-form'
-import { Spinner } from '@radix-ui/themes'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/stores/userAtom'
 import { useNavigate } from 'react-router-dom'
+
+import apis from '@/apis/apis'
 const Login = () => {
   interface LoginFormProps {
     username: string
@@ -30,6 +35,8 @@ const Login = () => {
     toast.error(event.error, {
       position: 'top-center',
     })
+    // 再次请求验证码
+    send()
   })
 
   onSuccess(({ data }) => {
@@ -149,7 +156,7 @@ const Login = () => {
                 <div className="absolute bottom-12">{errors.password && <p className="text-red-500 text-xs mt-1">密码不能为空</p>}</div>
                 <div>
                   <div className="flex items-center relative">
-                    <LockClosedIcon className="w-5 h-5 absolute left-3" />
+                    <LockIcon className="w-5 h-5 absolute left-3" />
                     <Controller
                       name="password"
                       control={control}
@@ -166,9 +173,9 @@ const Login = () => {
                       )}
                     />
                     {openEye ? (
-                      <EyeOpenIcon className="w-5 h-5 absolute right-4 cursor-pointer" onClick={() => setOpenEye(false)} />
+                      <VisibilityIcon className="w-5 h-5 absolute right-4 cursor-pointer" onClick={() => setOpenEye(false)} />
                     ) : (
-                      <EyeClosedIcon className="w-5 h-5 absolute right-4 cursor-pointer" onClick={() => setOpenEye(true)} />
+                      <VisibilityOffIcon className="w-5 h-5 absolute right-4 cursor-pointer" onClick={() => setOpenEye(true)} />
                     )}
                   </div>
                 </div>
@@ -177,7 +184,7 @@ const Login = () => {
                 <div className="absolute bottom-12">{errors.captcha && <p className="text-red-500 text-xs mt-1">验证码不能为空</p>}</div>
                 <div>
                   <div className="flex items-center relative">
-                    <GearIcon className="w-5 h-5 absolute left-3" />
+                    <SettingsIcon className="w-5 h-5 absolute left-3" />
                     <div className="flex gap-5 justify-between w-full items-center">
                       <Controller
                         name="captcha"
@@ -195,8 +202,7 @@ const Login = () => {
                       />
                       {loading ? (
                         <div className="w-full h-11  flex items-center justify-center rounded-md border-2 border-solid border-[#598b81] gap-3">
-                          <span>正在加载</span>
-                          <Spinner size={'2'} loading={true} />
+                          <CircularProgress color="secondary" size={27} />
                         </div>
                       ) : (
                         <img onClick={handleRefreshCaptcha} id="captcha" src={captchaSrc} className="w-full h-11 object-cover cursor-pointer rounded-md" alt="验证码" />
@@ -219,7 +225,7 @@ const Login = () => {
                   <button disabled className="w-full bg-[#598B8E] text-black py-3 rounded-md cursor-not-allowed transition duration-300">
                     <div className="flex gap-2 justify-center items-center">
                       正在登录
-                      <Spinner size={'2'} loading={true} />
+                      <CircularProgress size={27} />
                     </div>
                   </button>
                 ) : (
